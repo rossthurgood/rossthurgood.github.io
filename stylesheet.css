@@ -225,7 +225,7 @@ body.fade-out {
 }
 
 #aboutme {
-	background-image:url(Website%20extras/Blue_Light_Background-Abstract_widescreen_wallpaper_1920x1080.jpg);
+	background-image:url(website%20extras/Blue_Light_Background-Abstract_widescreen_wallpaper_1920x1080.jpg);
 	background-size:cover;
 	background-attachment:fixed;
 	background-color:#05CFCF;
@@ -303,7 +303,7 @@ h1, h2, h3, h4, h5, h6 {
 	column-rule: 1px solid #FFF;
 	column-width:170px;
 	text-align:justify;
-	background-image:url(Website%20extras/329419.jpg);
+	background-image:url(website%20extras/329419.jpg);
 	background-size:cover;
 
 	background-color:#05BFE0;
@@ -312,7 +312,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #poster {
-	background-image:url(Website%20extras/thumb-1920-1054764.jpg);
+	background-image:url(website%20extras/thumb-1920-1054764.jpg);
 	background-size:cover;
 	background-color:#05BFE0;
 	background-blend-mode:overlay;
@@ -340,7 +340,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #poster-card {
-	background-image: url(Website%20extras/Conditioned-1.80.png);
+	background-image: url(website%20extras/Conditioned-1_80.png);
 	background-size: cover;
 	background-position: center;
 	background-color: #06cccc;
@@ -400,14 +400,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-container .poster-card {
 	background-color:#FFF;
-	background-image:url(Website%20extras/Conditioned-1.80.png);
+	background-image:url(website%20extras/Conditioned-1_80.png);
 	border-radius:10px;
 	background-size:cover;
 	height:200px;
 }
 
 #other{
-	background-image:url(Website%20extras/light-green-texture-background.jpg);
+	background-image:url(website%20extras/light-green-texture-background.jpg);
 	background-size:cover;
 	background-attachment:fixed;
 	background-color:#005588;
