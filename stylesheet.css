@@ -264,42 +264,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Madimi One", sans-serif;
 }
 
-/* Placeholder / in-progress pages ------------------------------------------- */
-.placeholder-note {
-	background: rgba(0, 0, 0, 0.22);
-	border: 1px dashed rgba(255, 255, 255, 0.4);
-	border-radius: 10px;
-	padding: 22px 28px;
-	margin: 25px auto 0;
-	text-align: center;
-	color: #F0F0F0;
-	max-width: 600px;
-}
-
-.placeholder-note p {
-	margin: 6px 0;
-}
-
-.placeholder-list {
-	list-style: none;
-	padding: 0;
-	margin: 20px 0;
-}
-
-.placeholder-list li {
-	padding: 12px 18px;
-	margin: 10px 0;
-	background: rgba(0, 0, 0, 0.18);
-	border-left: 3px solid #ffc163;
-	border-radius: 6px;
-	transition: background 0.2s ease, transform 0.2s ease;
-}
-
-.placeholder-list li:hover {
-	background: rgba(0, 0, 0, 0.3);
-	transform: translateX(4px);
-}
-
 /* Portfolio ------------------------------------------- */
 #logo {
 	columns:2;
@@ -641,7 +605,41 @@ h1, h2, h3, h4, h5, h6 {
 	z-index: 1001;
 }
 
+/* Placeholder / in-progress pages ------------------------------------------- */
+.placeholder-note {
+	background: rgba(0, 0, 0, 0.22);
+	border: 1px dashed rgba(255, 255, 255, 0.4);
+	border-radius: 10px;
+	padding: 22px 28px;
+	margin: 25px auto 0;
+	text-align: center;
+	color: #F0F0F0;
+	max-width: 600px;
+}
 
+.placeholder-note p {
+	margin: 6px 0;
+}
+
+.placeholder-list {
+	list-style: none;
+	padding: 0;
+	margin: 20px 0;
+}
+
+.placeholder-list li {
+	padding: 12px 18px;
+	margin: 10px 0;
+	background: rgba(0, 0, 0, 0.18);
+	border-left: 3px solid #ffc163;
+	border-radius: 6px;
+	transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.placeholder-list li:hover {
+	background: rgba(0, 0, 0, 0.3);
+	transform: translateX(4px);
+}
 
 /* Media queries breakpoints ---------------------------------------------- */
 
