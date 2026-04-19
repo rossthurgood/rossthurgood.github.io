@@ -199,16 +199,17 @@ window.addEventListener('resize', function() {
 
 <script>
     const parallaxSections = ['logo', 'poster'];
+	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
-    window.addEventListener('scroll', function () {
-        parallaxSections.forEach(function (id) {
-            const el = document.getElementById(id);
-            if (!el) return;
-            const offset = (window.pageYOffset * 0.3) - 350;
-            el.style.backgroundPosition = 'center ' + offset + 'px';
-        });
-    });
-
+	window.addEventListener('scroll', function () {
+    	if (isIOS) return;
+    	parallaxSections.forEach(function (id) {
+        	const el = document.getElementById(id);
+        	if (!el) return;
+        	const offset = (window.pageYOffset * 0.3) - 350;
+        	el.style.backgroundPosition = 'center ' + offset + 'px';
+    	});
+	});
 </script>
 
 <script>
