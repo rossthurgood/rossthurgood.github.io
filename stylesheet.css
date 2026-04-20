@@ -257,11 +257,16 @@ body.fade-out {
 }
 
 #links {
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
 #links a {
-  margin: 0 10px;
+    text-decoration: none;
+    display: inline-block;
+    line-height: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
