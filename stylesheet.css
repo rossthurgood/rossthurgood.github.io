@@ -129,6 +129,7 @@ body.fade-out {
 .menulinks {
 	display: flex;
 	gap: 5px;
+	align-items: center;
 }
 
 .menulinks.collapsible {
