@@ -81,7 +81,7 @@ body.fade-out {
 	left:0;
 	bottom:-3px;
 	width:0%;
-	height:1px;
+	height:1.5px;
 	background:#FFF;
 	transition: width 0.3s ease;
 }
@@ -97,7 +97,6 @@ body.fade-out {
 
 #menubar a.active::after {
 	width: 100% !important;
-	height: 1px;
 	bottom: -3px;
 }
 
@@ -664,8 +663,10 @@ h1, h2, h3, h4, h5, h6 {
 		display: block;
 	}
 	.menulinks-wrapper {
-		display: flex;
-		margin: 0 auto;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		margin: 0;
 	}
 	.menulinks.always-visible {
 		display: flex;
@@ -678,6 +679,7 @@ h1, h2, h3, h4, h5, h6 {
 		left: 0;
 		width: 100%;
 		flex-direction: column;
+		align-items: center;
 		background-color: rgba(0,0,0,0.4);
 		backdrop-filter: blur(1.75px);
 		padding: 15px;
@@ -696,6 +698,13 @@ h1, h2, h3, h4, h5, h6 {
 		font-size:16px;
 		padding: 8px;
 	}
+	#menubar a.active {
+		padding: 8px;
+	}
+	#menubar a:not(.logo)::after,
+	#menubar a.active::after {
+		height: 1.5px;
+	}
 	.contentarea {
         padding: 80px 15% 80px 15%;
     }
@@ -703,7 +712,8 @@ h1, h2, h3, h4, h5, h6 {
 	width:100%;
 	}
 	.menulinks.collapsible {
-	text-align:center;
+		text-align: center;
+		align-items: center;
 	}
 	.gallery-grid {
 		grid-template-columns: repeat(4, 1fr);
@@ -721,8 +731,10 @@ h1, h2, h3, h4, h5, h6 {
 		margin-left: auto;
 	}
 	.menulinks-wrapper {
-		display: flex;
-		margin: 0 auto;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
+		margin: 0;
 	}
 	.menulinks.always-visible {
 		display: flex;
@@ -736,6 +748,7 @@ h1, h2, h3, h4, h5, h6 {
 		left: 0;
 		width: 100%;
 		flex-direction: column;
+		align-items: center;
 		background-color: rgba(0,0,0,0.4);
 		backdrop-filter: blur(1.75px);
 		padding: 15px;
@@ -754,6 +767,13 @@ h1, h2, h3, h4, h5, h6 {
 	#menubar a {
 		font-size: 14px;
 		padding: 6px;
+	}
+	#menubar a.active {
+		padding: 6px;
+	}
+	#menubar a:not(.logo)::after,
+	#menubar a.active::after {
+		height: 1.5px;
 	}
 	.contentarea {
         padding: 60px 20px 60px 20px;
