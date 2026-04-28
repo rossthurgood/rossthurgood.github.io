@@ -71,18 +71,18 @@ body.fade-out {
 #menubar a.logo{
 	margin-right:auto;
 }
-#menubar a.logo:hover{
-	opacity:0.8;
+#menubar a.logo:hover {
+	opacity: 0.8;
 }
 
 #menubar a:not(.logo)::after {
 	content: "";
-	position:absolute;
-	left:0;
-	bottom:-3px;
-	width:0%;
-	height:1.5px;
-	background:#FFF;
+	position: absolute;
+	left: 0;
+	bottom: -3px;
+	width: 0%;
+	height: 1.5px;
+	background: #FFF;
 	transition: width 0.3s ease;
 }
 
@@ -97,7 +97,6 @@ body.fade-out {
 
 #menubar a.active::after {
 	width: 100% !important;
-	bottom: -3px;
 }
 
 #menubar a.logo {
@@ -181,9 +180,9 @@ body.fade-out {
 
 
 .form-embed-wrapper {
-    width: 140%;        
-    margin-left: -20%;  
-    max-width: 1600px;  
+    width: calc(100% + 50%);
+    margin-left: -25%;
+    max-width: 1600px;
 }
 
 #choicebox {
@@ -434,6 +433,7 @@ h1, h2, h3, h4, h5, h6 {
 	transition: transform 0.25s ease, box-shadow 0.25s ease;
 	display: flex;
 	flex-direction: column;
+	will-change: transform;
 }
 
 .gallery-item img {
@@ -696,10 +696,10 @@ h1, h2, h3, h4, h5, h6 {
 	}
 	#menubar a {
 		font-size:16px;
-		padding: 8px;
+		padding: 12px;
 	}
 	#menubar a.active {
-		padding: 8px;
+		padding: 12px;
 	}
 	#menubar a:not(.logo)::after,
 	#menubar a.active::after {
@@ -766,10 +766,10 @@ h1, h2, h3, h4, h5, h6 {
 	}
 	#menubar a {
 		font-size: 14px;
-		padding: 6px;
+		padding: 12px;
 	}
 	#menubar a.active {
-		padding: 6px;
+		padding: 12px;
 	}
 	#menubar a:not(.logo)::after,
 	#menubar a.active::after {
@@ -831,7 +831,7 @@ h1, h2, h3, h4, h5, h6 {
 	}
 	#menubar a {
 		font-size: 12px;
-		padding: 4px;
+		padding: 10px;
 	}
 	.contentarea {
         padding: 50px 15px 50px 15px;
