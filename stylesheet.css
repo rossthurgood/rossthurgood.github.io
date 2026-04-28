@@ -117,7 +117,7 @@ body.fade-out {
 	display: none;
 	color: #ffc163;
 	margin-left: auto;
-	margin-right: 30px;
+	margin-right: 0;
 }
 
 .menulinks-wrapper {
