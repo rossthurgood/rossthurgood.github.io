@@ -262,12 +262,14 @@ body.fade-out {
     gap: 30px;
 }
 
-#cv {
-	display:inline-flex;
-	align-items:center;
-	justify-content:center;
-	aspect-ratio:1 / 1;
-	margin-left:12px;
+.cv-button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	margin-left: 12px;
 }
 
 #links a {
