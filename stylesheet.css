@@ -262,6 +262,12 @@ body.fade-out {
     gap: 30px;
 }
 
+#cv {
+	padding-left: 5px;
+	width: 120%;
+	text-align: center;
+}
+
 #links a {
     text-decoration: none;
     display: inline-block;
