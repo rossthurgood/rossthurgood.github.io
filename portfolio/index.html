@@ -206,7 +206,8 @@ window.addEventListener('resize', function() {
     	parallaxSections.forEach(function (id) {
         	const el = document.getElementById(id);
         	if (!el) return;
-        	const offset = (window.pageYOffset * 0.3) - 350;
+			const baseOffset = window.innerWidth < 600 ? 150 : window.innerWidth < 900 ? 250 : 350;
+        	const offset = (window.pageYOffset * 0.3) - baseOffset;
         	el.style.backgroundPosition = 'center ' + offset + 'px';
     	});
 	});
