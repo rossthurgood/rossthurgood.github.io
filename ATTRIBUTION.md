@@ -18,6 +18,10 @@ Access the website [here](https://rossthurgood.co.uk/).
 
 ## Additional Information
 
+In my project, I have ensured that all images used on the website comply with copyright requirements. Some of the images are my own original work, which I fully own and have complete rights to use. Any additional images included in the website are sourced under Creative Commons licences or from copyright © free libraries, ensuring they are legally permitted for reuse.
+
+The main legislation relevant to this project is the Data Privacy and Collection Requirements (DPCR). This framework ensures that any personal data collected through the website is handled responsibly, securely, and transparently. Following DPCR helps protect users’ information and builds trust by demonstrating that their data is managed safely and ethically.
+
 ### Brand Guidelines
 
 For proper usage of third-party logos:
