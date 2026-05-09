@@ -2,7 +2,7 @@
 
 ## About The Project
 
-This repository contains the source code for my personal portfolio website, available at [rossthurgood.co.uk](https://rossthurgood.co.uk?utm_source=chatgpt.com).
+This repository contains the source code for my personal portfolio website, available at [rossthurgood.co.uk](https://rossthurgood.co.uk).
 
 The website was designed and developed to showcase my work in graphic design, digital media, and website development. It acts as a professional digital portfolio where I present projects, demonstrate technical and creative skills, and document my progression throughout my Creative iMedia course.
 
@@ -25,7 +25,7 @@ The project was built primarily using:
 ## Live Website
 
 🌐 **Visit the website here:**
-[RossThurgood.co.uk](https://rossthurgood.co.uk?utm_source=chatgpt.com)
+[RossThurgood.co.uk](https://rossthurgood.co.uk)
 
 ---
 
@@ -198,6 +198,6 @@ Planned improvements for the website include:
 
 **Ross Thurgood**
 
-* Website: [rossthurgood.co.uk](https://rossthurgood.co.uk?utm_source=chatgpt.com)
-* GitHub: [@rossthurgood](https://github.com/rossthurgood?utm_source=chatgpt.com)
+* Website: [rossthurgood.co.uk](https://rossthurgood.co.uk)
+* GitHub: [@rossthurgood](https://github.com/rossthurgood)
 * LinkedIn: [Ross Thurgood](https://linkedin.com/in/ross-thurgood-a3b727404)
