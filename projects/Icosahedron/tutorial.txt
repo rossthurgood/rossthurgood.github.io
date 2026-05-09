@@ -1,2 +1,2 @@
 https://www.youtube.com/watch?v=XPhAR1YdD6o
-github.com/bobby-roe
+https://github.com/bobbyroe/getting-started-with-threejs
