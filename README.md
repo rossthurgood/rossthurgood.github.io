@@ -200,4 +200,4 @@ Planned improvements for the website include:
 
 * Website: [rossthurgood.co.uk](https://rossthurgood.co.uk?utm_source=chatgpt.com)
 * GitHub: [@rossthurgood](https://github.com/rossthurgood?utm_source=chatgpt.com)
-* LinkedIn: [
+* LinkedIn: [Ross Thurgood](https://linkedin.com/in/ross-thurgood-a3b727404)
