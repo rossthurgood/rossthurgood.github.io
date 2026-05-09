@@ -245,14 +245,8 @@ body.fade-out {
 .btn:hover {
 	background-color: #F0F0F0;
 	transform: scale(1.05);
-}
-
-#welcome .btn:hover {
 	color: #06CCCC;
-}
-
-#aboutme .btn:hover {
-	color: #21afa5;
+	box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
 
 #links {
@@ -345,6 +339,7 @@ h1, h2, h3, h4, h5, h6 {
 #poster-card .btn:hover {
 	background-color: rgba(0,0,0,0.75);
 	color: #FFF;
+	box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
 
 #poster-card p {
@@ -402,18 +397,10 @@ h1, h2, h3, h4, h5, h6 {
 	background-repeat: no-repeat;
 }
 
-#other .btn:hover {
-	color: #21afa5;
-}
-
 /* Poster creation ------------------------------------------- */
 #poster-info {
 	padding: 80px 10% 80px 10% !important;
 	text-align: center;
-}
-
-#poster-info .btn:hover {
-	color: #06CCCC;
 }
 
 #pdf-viewer {
