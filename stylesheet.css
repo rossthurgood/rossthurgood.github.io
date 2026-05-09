@@ -240,6 +240,7 @@ body.fade-out {
 	border-radius: 8px;
 	transition: all 0.2s ease;
 	display: inline-block;
+	margin-right: 12px;
 }
 
 .btn:hover {
@@ -250,13 +251,6 @@ body.fade-out {
 	mix-blend-mode: screen;
 }
 
-#links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 30px;
-}
-
 .cv-button {
 	display: inline-flex;
 	align-items: center;
@@ -264,7 +258,13 @@ body.fade-out {
 	width: 44px;
 	height: 44px;
 	padding: 0;
-	margin-left: 12px;
+}
+
+#links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
 }
 
 #links a {
