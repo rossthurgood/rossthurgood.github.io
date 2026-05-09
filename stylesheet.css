@@ -232,24 +232,22 @@ body.fade-out {
 }
 
 .btn {
-    border: 3px solid #F0F0F0;
-    text-decoration: none;
-    color: #F0F0F0;
-    padding: 10px;
-    font-size: 18px;
-    border-radius: 8px;
-    transition: all 0.2s ease;
-    display: inline-block;
-    background-color: transparent;
+	border: 3px solid #F0F0F0;
+	text-decoration: none;
+	color: #F0F0F0;
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+	display: inline-block;
 }
 
 .btn:hover {
-    background-color: #F0F0F0;
-    color: #000000;
-    mix-blend-mode: screen;
-    transform: scale(1.05);
-    border-color: #F0F0F0;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+	background-color: #F0F0F0;
+	transform: scale(1.05);
+	color: #06CCCC;
+	box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+	mix-blend-mode: screen;
 }
 
 #links {
