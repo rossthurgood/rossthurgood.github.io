@@ -245,12 +245,12 @@ body.fade-out {
 
 .btn:hover {
     background-color: #F0F0F0;
-    color: #000;
-    mix-blend-mode: multiply;
+    color: #000000;
+    mix-blend-mode: screen;
     transform: scale(1.05);
+    border-color: #F0F0F0;
     box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
-
 
 #links {
     display: flex;
