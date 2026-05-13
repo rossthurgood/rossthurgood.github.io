@@ -30,6 +30,7 @@
     </div>
   </div>
   <span class="menuBtn" onclick="toggleNav()">☰</span>
+  <button class="modeBtn" id="modeBtn" type="button" aria-label="Toggle dark mode">☾</button>
 </div>
 
 <div class="contentarea" id="welcome">
@@ -144,6 +145,31 @@
             }
         });
     });
+</script>
+
+<script>
+    const modeBtn = document.getElementById('modeBtn');
+    const savedMode = localStorage.getItem('pageMode');
+
+    const updateModeIcon = () => {
+        if (!modeBtn) return;
+        modeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀' : '☾';
+    };
+
+    if (savedMode === 'dark') {
+        document.body.classList.add('dark-mode');
+    } else if (savedMode === 'light') {
+        document.body.classList.remove('dark-mode');
+    }
+    updateModeIcon();
+
+    if (modeBtn) {
+        modeBtn.addEventListener('click', () => {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('pageMode', isDark ? 'dark' : 'light');
+            updateModeIcon();
+        });
+    }
 </script>
 
 </body>
