@@ -6,8 +6,8 @@ html{
 body {
 	margin: 0;
 	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
-	background-size: 400% 400%;
 	animation: fadein 0.6s both, gradientShift 8s ease infinite;
+	background-size: 400% 400%;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	color:#F0F0F0;
 	width:100%;
@@ -156,7 +156,7 @@ body.fade-out {
 
 :root {
 	--primary-teal: #06CCCC;
-	--primary-teal-dark: #003B3B;
+	--primary-teal-dark: #00333A;
 	--primary-cyan: #2FFBEC;
 	--primary-mid: #0599CC;
 	--surface: rgba(255,255,255,0.12);
@@ -197,7 +197,8 @@ body.fade-out {
 }
 
 body.dark-mode {
-	background: linear-gradient(135deg, #0B3A3A, #003B3B, #004C56, #0A5961);
+	background: linear-gradient(135deg, #0B1316, #00333A, #132226, #1C3238);
+	animation: fadein 0.6s both, gradientShift 8s ease infinite;
 	color: #E5F8F8;
 }
 
@@ -207,11 +208,11 @@ body.dark-mode #menubar {
 }
 
 body.dark-mode .contentarea {
-	background-color: #003B3B;
+	background-color: #00333A;
 }
 
 body.dark-mode #welcome {
-	background: linear-gradient(135deg, #0B3A3A, #003B3B, #004C56, #0A5961);
+	background: linear-gradient(135deg, #0B3A3A, #00333A, #004C56, #0A5961);
 }
 
 body.dark-mode #contact {
@@ -232,7 +233,7 @@ body.dark-mode .btn:hover {
 }
 
 body.dark-mode #aboutme {
-	background-color: #003B3B;
+	background-color: #00333A;
 }
 
 body.dark-mode .gallery-item {
