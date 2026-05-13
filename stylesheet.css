@@ -152,6 +152,91 @@ body.fade-out {
 	width:100%;
 }
 
+/* Dark mode ------------------------------------------- */
+
+:root {
+	--primary-teal: #06CCCC;
+	--primary-teal-dark: #003B3B;
+	--primary-cyan: #2FFBEC;
+	--primary-mid: #0599CC;
+	--surface: rgba(255,255,255,0.12);
+	--surface-strong: rgba(255,255,255,0.22);
+	--text: #F0F0F0;
+}
+
+.modeBtn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 48px;
+	min-height: 42px;
+	padding: 10px 16px;
+	border: 3px solid var(--text);
+	border-radius: 8px;
+	background: rgba(255,255,255,0.08);
+	color: var(--text);
+	font-size: 16px;
+	cursor: pointer;
+	transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease;
+}
+
+.modeBtn:hover {
+	background: rgba(255,255,255,0.16);
+	transform: scale(1.02);
+}
+
+body.dark-mode {
+	background: linear-gradient(135deg, #0B3A3A, #003B3B, #004C56, #0A5961);
+	color: #E5F8F8;
+}
+
+body.dark-mode #menubar {
+	background-color: rgba(0,0,0,0.55);
+	border-bottom-color: rgba(255,255,255,0.12);
+}
+
+body.dark-mode .contentarea {
+	background-color: #003B3B;
+}
+
+body.dark-mode #welcome {
+	background: linear-gradient(135deg, #0B3A3A, #003B3B, #004C56, #0A5961);
+}
+
+body.dark-mode #contact {
+	background: rgba(0, 74, 82, 0.36);
+	border-color: rgba(255,255,255,0.12);
+	box-shadow: 0 0 25px rgba(0,0,0,0.65);
+}
+
+body.dark-mode .btn,
+body.dark-mode .modeBtn {
+	border-color: #D4F6F6;
+	color: #E5F8F8;
+}
+
+body.dark-mode .btn:hover {
+	background-color: rgba(255,255,255,0.12);
+	color: #C8F3F3;
+}
+
+body.dark-mode #aboutme {
+	background-color: #003B3B;
+}
+
+body.dark-mode .gallery-item {
+	border-color: rgba(255,255,255,0.16);
+	box-shadow: 0 3px 14px rgba(0,0,0,0.45);
+}
+
+body.dark-mode .gallery-overlay {
+	background: rgba(0, 58, 58, 0.75);
+}
+
+body.dark-mode .lightbox {
+	background: rgba(0, 0, 0, 0.96);
+}
+
 /* Home ------------------------------------------- */
 #welcome {
 	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
