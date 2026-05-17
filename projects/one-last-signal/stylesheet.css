@@ -1,0 +1,37 @@
+﻿@charset "utf-8";
+html,
+body {
+	margin: 0;
+	height: 1600vh;
+	overflow-x: hidden;
+	font-family: system-ui, sans-serif;
+	background: #02030b;
+	color: #f4f7ff;
+}
+
+#scene-container {
+	position: fixed;
+	inset: 0;
+	
+	overflow: hidden;
+}
+
+#scene-container canvas {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	display: block;
+}
+
+#intro-text {
+	position: absolute;
+	top: 18px;
+	left: 18px;
+	color: #f4f7ff;
+	font-size: 1rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+	text-shadow: 0 0 20px rgba(0, 0, 0, 0.65);
+	z-index: 10;
+}
