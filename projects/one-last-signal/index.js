@@ -4,6 +4,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const gltfloader = new GLTFLoader();
+
 const container = document.querySelector('#scene-container');
 if (!container) {
 	throw new Error('Missing #scene-container element');
