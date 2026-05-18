@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 import { GLTFLoader } from 'jsm/loaders/GLTFLooader.js;
 
-// gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger);
 // const gltfloader = new GLTFLoader();
 
 const container = document.querySelector('#scene-container');
