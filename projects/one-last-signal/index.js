@@ -53,7 +53,7 @@ const stars = new THREE.Points(
 		size: 0.15, 
 		transparent: true, 
 		opacity: 0.85,
-		map: new THREE.TextureLoader().load("assets/star.png")
+		map: new THREE.TextureLoader().load("textures/star.png")
 	})
 );
 scene.add(stars);
@@ -61,7 +61,7 @@ scene.add(stars);
 const earth = new THREE.Mesh(
 new THREE.SphereGeometry(2.0, 64, 64),
 new THREE.MeshStandardMaterial({ 
-	map: new THREE.TextureLoader().load("assets/deadearth.png"),
+	map: new THREE.TextureLoader().load("textures/deadearth.png"),
 	roughness: 0.65, 
 	metalness: 0.05 
 })
