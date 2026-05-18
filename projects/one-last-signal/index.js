@@ -1,4 +1,4 @@
- ﻿import * as THREE from 'three';
+﻿import * as THREE from 'three';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger.js';
 import { GLTFLoader } from 'jsm/loaders/GLTFLooader.js;
