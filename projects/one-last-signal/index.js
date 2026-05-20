@@ -1,7 +1,8 @@
-import * as THREE from 'https://unpkg.com/three/build/three.module.js';
+import * as THREE from 'https://unpkg.com/three@0.164.0/build/three.module.js';
+import { GLTFLoader } from 'https://unpkg.com/three@0.164.0/examples/jsm/loaders/GLTFLoader.js';
+
 import gsap from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js'
-import { GLTFLoader } from 'https://unpkg.com/three/examples/jsm/loaders/GLTFLoader.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -144,7 +145,9 @@ function createAsteroid(size) {
 	const mat = new THREE.MeshStandardMaterial({
 		color: 0xbfc1c2,
 		roughness: 1,
-		metalness: 0
+		metalness: 0,
+		transparent: true,
+		opacity: 1
 	});
 	
 	return new THREE.Mesh(geo, mat);
@@ -193,7 +196,7 @@ const asteroidBelt = createAsteroidBelt({
 
 scene.add(asteroidBelt);
 
-camera.lookAt(0, 0, 0);
+camera.lookAt(ship.position);
 
 function resize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
@@ -213,30 +216,30 @@ const timeline = gsap.timeline({
 
 function addOrbit(timeline, ship, radius, duration, startTime) {
 	const orbit = { angle: 0 };
-
+	
 	timeline.to(ship.position, {
 		x: radius,
 		z: 0,
 		duration: 0.5,
 		ease: "power2.inOut"
 	}, startTime);
-
+	
 	timeline.to(orbit, {
-    	angle: Math.PI * 2,
-    	duration,
-    	ease: "none",
-    	onUpdate: () => {
+		angle: Math.PI * 2,
+		duration,
+		ease: "none",
+		onUpdate: () => {
 			ship.position.x = radius * Math.cos(orbit.angle);
 			ship.position.z = radius * Math.sin(orbit.angle);
-
+			
 			ship.lookAt(
 				radius * Math.cos(orbit.angle + 0.1),
 				ship.position.y,
 				radius * Math.sin(orbit.angle + 0.1)
 			);
-		},
-	}, startTime);
-
+		}
+	}, startTime + 0.5);
+	
 	timeline.to(ship.position, {
 		x: 0,
 		z: 0,
@@ -244,6 +247,7 @@ function addOrbit(timeline, ship, radius, duration, startTime) {
 		ease: "power2.inOut"
 	}, startTime + 0.5 + duration);
 }
+
 
 
 timeline
@@ -268,11 +272,12 @@ timeline
 	.add(() => addOrbit(timeline, ship, 3, 2, 3.5), 3.5)
 	.to(planet2.position, { x: -15, ease: 'none' }, 4.25);
 
-const clock = new THREE.Clock();
+const timer = new THREE.Timer();
 
 function animate() {
 	requestAnimationFrame(animate);
-	ship.rotation.x = Math.sin(clock.getElapsedTime() * 1.2) * 0.03;
+	const elapsed = timer.getElapsed();
+	ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
 	renderer.render(scene, camera);
 
 	asteroidBelt.rotation.y += 0.0008;
