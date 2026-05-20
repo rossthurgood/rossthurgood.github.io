@@ -104,7 +104,7 @@ scene.add(ship);
 const planet1 = new THREE.Mesh(
 	new THREE.SphereGeometry(2.0, 64, 64),
 	new THREE.MeshStandardMaterial({ 
-		color: 0x06abab,
+		map: new THREE.TextureLoader().load("textures/rocky.jpg"),
 		roughness: 0.65, 
 		metalness: 0.05 
 	})
