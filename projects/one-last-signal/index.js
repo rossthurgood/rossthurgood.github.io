@@ -204,24 +204,38 @@ const timeline = gsap.timeline({
 	}
 });
 
-function addOrbit(timeline, ship, planet, radius, duration, startTime) {
+function addOrbit(timeline, ship, radius, duration, startTime) {
 	const orbit = { angle: 0 };
+
+	timeline.to(ship.position, {
+		x: radius,
+		z: 0,
+		duration: 0.5,
+		ease: "power2.inOut"
+	}, startTime);
 
 	timeline.to(orbit, {
     	angle: Math.PI * 2,
     	duration,
     	ease: "none",
     	onUpdate: () => {
-			ship.position.x = planet.position.x + radius * Math.cos(orbit.angle);
-			ship.position.z = planet.position.z + radius * Math.sin(orbit.angle);
+			ship.position.x = radius * Math.cos(orbit.angle);
+			ship.position.z = radius * Math.sin(orbit.angle);
 
 			ship.lookAt(
-				planet.position.x + radius * Math.cos(orbit.angle + 0.1),
+				radius * Math.cos(orbit.angle + 0.1),
 				ship.position.y,
-				planet.position.z + radius * Math.sin(orbit.angle + 0.1)
+				radius * Math.sin(orbit.angle + 0.1)
 			);
-		}
+		},
 	}, startTime);
+
+	timeline.to(ship.position, {
+		x: 0,
+		z: 0,
+		duration: 0.5,
+		ease: "power2.inOut"
+	}, startTime + 0.5 + duration);
 }
 
 
@@ -229,12 +243,15 @@ timeline
 	.to(ship.scale, { x: 1, y: 1, z: 1, ease: 'none' }, 0)
 	.to(earth.position, { x: -15, ease: 'none' }, 0)
 	.to(earth.scale, { x: 0.3, y: 0.3, z: 0.3, ease: 'none' }, 0)
+	
 	.to({}, { duration: 2 })
+	
 	.to(planet1.position, { x: 0, ease: 'none' }, 0)
-	.add(() => addOrbit(timeline, ship, planet1, 3, 2, timeline.time()), 0)
+	.add(() => addOrbit(timeline, ship, 3, 2, timeline.time()), 0)
 	.to(planet1.position, { x: -15, ease: 'none' }, 0.75)
+	
 	.to(planet2.position, { x: 0, ease: 'none' }, 1.5)
-	.add(() => addOrbit(timeline, ship, planet2, 3, 2, timeline.time()), 1.5)
+	.add(() => addOrbit(timeline, ship, 3, 2, timeline.time()), 1.5)
 	.to(planet2.position, { x: -15, ease: 'none' }, 2.25);
 
 const clock = new THREE.Clock();
