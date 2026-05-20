@@ -42,9 +42,9 @@ const starGeometry = new THREE.BufferGeometry();
 const starCount = 700;
 const starPositions = new Float32Array(starCount * 3);
 for (let i = 0; i < starPositions.length; i += 3) {
-starPositions[i] = (Math.random() - 0.5) * 40;
-starPositions[i + 1] = (Math.random() - 0.5) * 20;
-starPositions[i + 2] = (Math.random() - 0.5) * 120;
+	starPositions[i] = (Math.random() - 0.5) * 40;
+	starPositions[i + 1] = (Math.random() - 0.5) * 20;
+	starPositions[i + 2] = (Math.random() - 0.5) * 120;
 }
 starGeometry.setAttribute('position', new THREE.BufferAttribute(starPositions, 3));
 const stars = new THREE.Points(
@@ -60,27 +60,27 @@ const stars = new THREE.Points(
 scene.add(stars);
 
 const earth = new THREE.Mesh(
-new THREE.SphereGeometry(2.0, 64, 64),
-new THREE.MeshStandardMaterial({ 
-	map: new THREE.TextureLoader().load("textures/deadearth.png"),
-	roughness: 0.65, 
-	metalness: 0.05 
-})
+	new THREE.SphereGeometry(2.0, 64, 64),
+	new THREE.MeshStandardMaterial({ 
+			map: new THREE.TextureLoader().load("textures/deadearth.png"),
+		roughness: 0.65, 
+		metalness: 0.05 
+	})
 );
 earth.position.set(-2.5, -0.2, 0);
 scene.add(earth);
 
 const ship = new THREE.Group();
 const shipBody = new THREE.Mesh(
-new THREE.CylinderGeometry(0.12, 0.12, 1.6, 14),
-new THREE.MeshStandardMaterial({ color: 0xe6e6e6, metalness: 0.4, roughness: 0.3 })
+	new THREE.CylinderGeometry(0.12, 0.12, 1.6, 14),
+	new THREE.MeshStandardMaterial({ color: 0xe6e6e6, metalness: 0.4, roughness: 0.3 })
 );
 shipBody.rotateZ(Math.PI / 2);
 ship.add(shipBody);
 
 const shipNose = new THREE.Mesh(
-new THREE.ConeGeometry(0.12, 0.45, 12),
-new THREE.MeshStandardMaterial({ color: 0xfff3ba, metalness: 0.3, roughness: 0.4 })
+	new THREE.ConeGeometry(0.12, 0.45, 12),
+	new THREE.MeshStandardMaterial({ color: 0xfff3ba, metalness: 0.3, roughness: 0.4 })
 );
 shipNose.rotateZ(Math.PI / 2);
 shipNose.position.set(0.95, 0, 0);
@@ -126,36 +126,36 @@ scene.add(planet2);
 camera.lookAt(0, 0, 0);
 
 function resize() {
-camera.aspect = window.innerWidth / window.innerHeight;
-camera.updateProjectionMatrix();
-renderer.setSize(window.innerWidth, window.innerHeight);
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	renderer.setSize(window.innerWidth, window.innerHeight);
 }
 window.addEventListener('resize', resize);
 
 const timeline = gsap.timeline({
-scrollTrigger: {
-trigger: document.body,
-start: 'top top',
-end: '+=12500',
-scrub: true
-}
+	scrollTrigger: {
+		trigger: document.body,
+		start: 'top top',
+		end: '+=12500',
+		scrub: 1
+	}
 });
 
 timeline
-.to(ship.scale, { x: 1, y: 1, z: 1, ease: 'none' }, 0)
-.to(earth.position, { x: -15, ease: 'none' }, 0)
-.to(earth.scale, { x: 0.3, y: 0.3, z: 0.3, ease: 'none' }, 0)
-.to(planet1.position, { x: 0, ease: 'none' }, 0)
-.to(planet1.position, { x: -15, ease: 'none' }, 0.75)
-.to(planet2.position, { x: 0, ease: 'none' }, 1.5)
-.to(planet2.position, { x: -15, ease: 'none' }, 2.25);
+	.to(ship.scale, { x: 1, y: 1, z: 1, ease: 'none' }, 0)
+	.to(earth.position, { x: -15, ease: 'none' }, 0)
+	.to(earth.scale, { x: 0.3, y: 0.3, z: 0.3, ease: 'none' }, 0)
+	.to(planet1.position, { x: 0, ease: 'none' }, 0)
+	.to(planet1.position, { x: -15, ease: 'none' }, 0.75)
+	.to(planet2.position, { x: 0, ease: 'none' }, 1.5)
+	.to(planet2.position, { x: -15, ease: 'none' }, 2.25);
 
 const clock = new THREE.Clock();
 
 function animate() {
-requestAnimationFrame(animate);
-ship.rotation.x = Math.sin(clock.getElapsedTime() * 1.2) * 0.03;
-renderer.render(scene, camera);
+	requestAnimationFrame(animate);
+	ship.rotation.x = Math.sin(clock.getElapsedTime() * 1.2) * 0.03;
+	renderer.render(scene, camera);
 }
 
 animate();
