@@ -1,0 +1,62 @@
+Yes — you can absolutely use those CDN imports of GSAP and ScrollTrigger to control your timeline with scrub, but you must register the plugin before using it, and you must attach the timeline to a ScrollTrigger instance.
+
+Here’s the short version:
+
+Yes, your CDN imports work fine — you just need to call gsap.registerPlugin(ScrollTrigger) and attach a ScrollTrigger to your timeline.
+
+✅ How to make your timeline scrub with ScrollTrigger
+You already have:
+
+js
+import gsap from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
+import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js';
+Now add:
+
+js
+gsap.registerPlugin(ScrollTrigger);
+Then attach ScrollTrigger to your timeline:
+
+js
+const timeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: "#yourScrollContainer",   // element that controls scroll
+    start: "top top",
+    end: "bottom bottom",
+    scrub: 1,                          // <— enables scrubbing
+    markers: true                      // optional for debugging
+  }
+});
+And your animation stays exactly the same:
+
+js
+timeline
+  .to(ship.scale, { x: 1, y: 1, z: 1, ease: "none" }, 0)
+  .to(earth.position, { x: -15, ease: "none" }, 0)
+  .to(earth.scale, { x: 0.3, y: 0.3, z: 0.3, ease: "none" }, 0)
+  .to(planet1.position, { x: 0, ease: "none" }, 0)
+  .to(planet1.position, { x: -15, ease: "none" }, 0.75)
+  .to(planet2.position, { x: 0, ease: "none" }, 1.5)
+  .to(planet2.position, { x: -15, ease: "none" }, 2.25);
+🧠 Why your original code didn’t scrub
+GSAP timelines don’t automatically connect to scroll — you must explicitly create a ScrollTrigger instance and bind it to the timeline.
+
+🧪 Quick test version (minimal)
+js
+gsap.registerPlugin(ScrollTrigger);
+
+const tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".wrapper",
+    scrub: true
+  }
+});
+
+tl.to(ship.scale, { x: 1, y: 1, z: 1 });
+Want me to help you set up the HTML/CSS scroll container, or integrate this with Three.js render loops?
+Choose one:
+
+Set up ScrollTrigger with Three.js
+
+Fix my ScrollTrigger not working
+
+Show a complete working example
