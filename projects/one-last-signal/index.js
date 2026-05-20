@@ -102,26 +102,89 @@ ship.scale.set(0.3, 0.3, 0.3);
 scene.add(ship);
 
 const planet1 = new THREE.Mesh(
-new THREE.SphereGeometry(2.0, 64, 64),
-new THREE.MeshStandardMaterial({ 
-	color: 0x06abab,
-	roughness: 0.65, 
-	metalness: 0.05 
-})
+	new THREE.SphereGeometry(2.0, 64, 64),
+	new THREE.MeshStandardMaterial({ 
+		color: 0x06abab,
+		roughness: 0.65, 
+		metalness: 0.05 
+	})
 );
 planet1.position.set(15, -0.2, 0);
 scene.add(planet1);
 
 const planet2 = new THREE.Mesh(
-new THREE.SphereGeometry(2.0, 64, 64),
-new THREE.MeshStandardMaterial({ 
-	color: 0xfd56fd,
-	roughness: 0.65, 
-	metalness: 0.05 
-})
+	new THREE.SphereGeometry(2.0, 64, 64),
+	new THREE.MeshStandardMaterial({ 
+		color: 0xfd56fd,
+		roughness: 0.65, 
+		metalness: 0.05 
+	})
 );
 planet2.position.set(30, -0.2, 0);
 scene.add(planet2);
+
+function createAsteroid(size) {
+	const geo = new THREE.IcosahedronGeometry(size, 1);
+
+	const pos = geo.attributes.position;
+	for (let i = 0; i < pos.count; i++) {
+		const nx = (Math.random() - 0.5) * size * 0.6;
+		const ny = (Math.random() - 0.5) * size * 0.6;
+		const nz = (Math.random() - 0.5) * size * 0.6;
+		pos.setXYZ(
+			i,
+			pos.getX(i) + nx,
+			pos.getY(i) + ny,
+			pos.getZ(i) + nz
+		);
+	}
+	pos.needsUpdate = true;
+	geo.computeVertexNormals();
+	
+	const mat = new THREE.MeshStandardMaterial({
+		color: 0xbfc1c2,
+		roughness: 1,
+		metalness: 0
+	});
+	
+	return new THREE.Mesh(geo, mat);
+}
+
+function createAsteroidBelt({
+	count = 500,
+	radius = 18,
+	width = 8,
+	minSize = 0.05,
+	maxSize = 0.3,
+	y = 0
+}) {
+	const group = new THREE.Group();
+	
+	for (let i = 0; i < count; i++) {
+		const size = THREE.MathUtils.lerp(minSize, maxSize, Math.random());
+		const asteroid = createAsteroid(size);
+		
+		const angle = Math.random() * Math.PI * 2;
+		const dist = radius + (Math.random() - 0.5) * width;
+		
+		asteroid.position.set(
+			Math.cos(angle) * dist,
+			y + (Math.random() - 0.5) * 1.5,
+			Math.sin(angle) * dist
+		);
+		
+		asteroid.rotation.set(
+			Math.random() * Math.PI,
+			Math.random() * Math.PI,
+			Math.random() * Math.PI
+		);
+		
+		group.add(asteroid);
+	}
+	return group;
+}
+
+
 
 camera.lookAt(0, 0, 0);
 
