@@ -174,3 +174,27 @@ timeline
   }, "<")
   .to(asteroidBelt.rotation, { y: "+=0.5", duration: 2, ease: "none" }, "<");
 This makes the belt appear naturally as the ship enters the region.
+
+-----------------------------------------------------------------------------------------------
+
+600gsap-core.js:89 Invalid property opacity set to 0 Missing plugin? gsap.registerPlugin()
+_missingPlugin @ gsap-core.js:89
+_addPropTween @ gsap-core.js:2823
+_initTween @ gsap-core.js:3017
+_attemptInitTween @ gsap-core.js:444
+_renderZeroDurationTween @ gsap-core.js:490
+render @ gsap-core.js:3352
+Tween @ gsap-core.js:3325
+set @ gsap-core.js:3645
+_initTween @ gsap-core.js:2973
+_attemptInitTween @ gsap-core.js:444
+render @ gsap-core.js:3411
+Tween @ gsap-core.js:3325
+_createTweenType @ gsap-core.js:633
+to @ gsap-core.js:2042
+Tween @ gsap-core.js:3252
+_createTweenType @ gsap-core.js:633
+from @ gsap-core.js:2048
+(anonymous) @ index.js:260Understand this warning
+index.js:275 Uncaught TypeError: THREE.Timer is not a constructor
+    at index.js:275:15
