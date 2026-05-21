@@ -276,7 +276,7 @@ const clock = new THREE.Clock();
 
 function animate() {
 	requestAnimationFrame(animate);
-	const elapsed = clock.getElapsed();
+	const elapsed = clock.getElapsedTime();
 	ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
 	renderer.render(scene, camera);
 
