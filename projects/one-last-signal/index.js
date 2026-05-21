@@ -1,5 +1,5 @@
-import * as THREE from 'https://unpkg.com/three@0.164.0/build/three.module.js';
-import { GLTFLoader } from 'https://unpkg.com/three@0.164.0/examples/jsm/loaders/GLTFLoader.js';
+import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.164.0/build/three.module.js";
+import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.164.0/examples/jsm/loaders/GLTFLoader.js";
 
 import gsap from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/index.js';
 import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTrigger.js'
@@ -7,6 +7,7 @@ import { ScrollTrigger } from 'https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTr
 gsap.registerPlugin(ScrollTrigger);
 
 const gltfloader = new GLTFLoader();
+const texloader = new THREE.TextureLoader();
 
 const container = document.querySelector('#scene-container');
 if (!container) {
@@ -55,7 +56,7 @@ const stars = new THREE.Points(
 		size: 0.15, 
 		transparent: true, 
 		opacity: 0.85,
-		map: new THREE.TextureLoader().load("textures/star.png")
+		map: texloader.load("textures/star.png")
 	})
 );
 scene.add(stars);
@@ -63,7 +64,7 @@ scene.add(stars);
 const earth = new THREE.Mesh(
 	new THREE.SphereGeometry(2.0, 64, 64),
 	new THREE.MeshStandardMaterial({ 
-			map: new THREE.TextureLoader().load("textures/deadearth.png"),
+		map: texloader.load("textures/deadearth.png"),
 		roughness: 0.65, 
 		metalness: 0.05 
 	})
@@ -102,10 +103,12 @@ ship.position.set(-2.5, -0.2, 0);
 ship.scale.set(0.3, 0.3, 0.3);
 scene.add(ship);
 
+camera.lookAt(ship.position);
+
 const planet1 = new THREE.Mesh(
 	new THREE.SphereGeometry(2.0, 64, 64),
 	new THREE.MeshStandardMaterial({ 
-		map: new THREE.TextureLoader().load("textures/rocky.jpg"),
+		map: texloader.load("textures/rocky.jpg"),
 		roughness: 0.65, 
 		metalness: 0.05 
 	})
@@ -196,8 +199,6 @@ const asteroidBelt = createAsteroidBelt({
 
 scene.add(asteroidBelt);
 
-camera.lookAt(ship.position);
-
 function resize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
@@ -257,7 +258,10 @@ timeline
 	
 	.to({}, { duration: 2 })
 	.from(asteroidBelt.position, { x: "+=5", duration: 2, ease: "none" }, "<")
-	.from(asteroidBelt.children.map(a => a.material), {
+	.from(asteroidBelt.children
+		  .map(a => a.material)
+		  .filter(m => m.transparent === true),
+	{
 		opacity: 0,
 		duration: 1.5,
 		stagger: 0.002
