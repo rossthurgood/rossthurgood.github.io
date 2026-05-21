@@ -174,8 +174,8 @@ function createAsteroidBelt({
 		const dist = radius + (Math.random() - 0.5) * width;
 		
 		asteroid.position.set(
-			Math.cos(angle) * dist,
-			y + (Math.random() - 0.5) * 1.5,
+			(Math.random() - 0.5) * 1.0,
+			Math.cos(angle) * dist + y,
 			Math.sin(angle) * dist
 		);
 		
@@ -199,6 +199,10 @@ const asteroidBelt = createAsteroidBelt({
 
 scene.add(asteroidBelt);
 
+const asteroidMaterials = asteroidBelt.children
+    .map(a => a.material)
+    .filter(m => m && m.transparent === true);
+
 function resize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
@@ -215,12 +219,12 @@ const timeline = gsap.timeline({
 	}
 });
 
-function addOrbit(timeline, ship, radius, duration, startTime) {
+function addOrbit(timeline, ship, centerObj, radius, duration, startTime) {
 	const orbit = { angle: 0 };
 	
 	timeline.to(ship.position, {
-		x: radius,
-		z: 0,
+		x: centerObj.position.x + radius,
+		z: centerObj.position.z,
 		duration: 0.5,
 		ease: "power2.inOut"
 	}, startTime);
@@ -230,26 +234,24 @@ function addOrbit(timeline, ship, radius, duration, startTime) {
 		duration,
 		ease: "none",
 		onUpdate: () => {
-			ship.position.x = radius * Math.cos(orbit.angle);
-			ship.position.z = radius * Math.sin(orbit.angle);
+			ship.position.x = centerObj.position.x + radius * Math.cos(orbit.angle);
+			ship.position.z = centerObj.position.z + radius * Math.sin(orbit.angle);
 			
 			ship.lookAt(
-				radius * Math.cos(orbit.angle + 0.1),
+				centerObj.position.x + radius * Math.cos(orbit.angle + 0.1),
 				ship.position.y,
-				radius * Math.sin(orbit.angle + 0.1)
+				centerObj.position.z + radius * Math.sin(orbit.angle + 0.1)
 			);
 		}
 	}, startTime + 0.5);
 	
 	timeline.to(ship.position, {
-		x: 0,
-		z: 0,
+		x: centerObj.position.x,
+		z: centerObj.position.z,
 		duration: 0.5,
 		ease: "power2.inOut"
 	}, startTime + 0.5 + duration);
 }
-
-
 
 timeline
 	.to(ship.scale, { x: 1, y: 1, z: 1, ease: 'none' }, 0)
@@ -257,24 +259,21 @@ timeline
 	.to(earth.scale, { x: 0.3, y: 0.3, z: 0.3, ease: 'none' }, 0)
 	
 	.to({}, { duration: 2 })
+	
 	.from(asteroidBelt.position, { x: "+=5", duration: 2, ease: "none" }, "<")
-	.from(asteroidBelt.children
-		  .map(a => a.material)
-		  .filter(m => m.transparent === true),
-	{
-		opacity: 0,
-		duration: 1.5,
-		stagger: 0.002
-	}, "<")
+	.from(asteroidMaterials, { opacity: 0, duration: 1.5, stagger: 0.002 }, "<")
 	.to(asteroidBelt.rotation, { y: "+=0.5", duration: 2, ease: "none" }, "<")
 	
+	.to(asteroidBelt.position, { x: -8, duration: 1.5, ease: "power2.inOut" }, 1.25)
+	.to(asteroidMaterials, { opacity: 0, duration: 1.2, stagger: 0.002, ease: "none" }, 1.25)
+	
 	.to(planet1.position, { x: 0, ease: 'none' }, 2)
-	.add(() => addOrbit(timeline, ship, 3, 2, 2), 2)
-	.to(planet1.position, { x: -15, ease: 'none' }, 2.75)
+	.add(() => addOrbit(timeline, ship, planet1, 3, 2, 2), 2)
+	.to(planet1.position, { x: -40, ease: 'none' }, 2 + 0.5 + 2 + 0.5)
 	
 	.to(planet2.position, { x: 0, ease: 'none' }, 3.5)
-	.add(() => addOrbit(timeline, ship, 3, 2, 3.5), 3.5)
-	.to(planet2.position, { x: -15, ease: 'none' }, 4.25);
+	.add(() => addOrbit(timeline, ship, planet2, 3, 2, 3.5), 3.5)
+	.to(planet2.position, { x: -40, ease: 'none' }, 3.5 + 0.5 + 2 + 0.5);
 
 const clock = new THREE.Clock();
 
