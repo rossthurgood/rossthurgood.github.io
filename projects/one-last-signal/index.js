@@ -129,7 +129,7 @@ scene.add(planet2);
 
 function createAsteroid(size) {
 	const geo = new THREE.IcosahedronGeometry(size, 1);
-
+	
 	const pos = geo.attributes.position;
 	for (let i = 0; i < pos.count; i++) {
 		const nx = (Math.random() - 0.5) * size * 0.6;
@@ -148,46 +148,61 @@ function createAsteroid(size) {
 	const mat = new THREE.MeshStandardMaterial({
 		color: 0xbfc1c2,
 		roughness: 1,
-		metalness: 0,
-		transparent: true,
-		opacity: 1
-	});
-	
-	return new THREE.Mesh(geo, mat);
+        metalness: 0,
+        transparent: true,
+        opacity: 1
+    });
+
+    const mesh = new THREE.Mesh(geo, mat);
+
+    mesh.userData.orbitAngle = Math.random() * Math.PI * 2;
+    mesh.userData.orbitRadius = THREE.MathUtils.lerp(size * 2.5, size * 6, Math.random());
+    mesh.userData.orbitSpeed = THREE.MathUtils.lerp(0.1, 0.6, Math.random()) * 0.2;
+    mesh.userData.riseSpeed = THREE.MathUtils.lerp(0.02, 0.08, Math.random()) * 0.5;
+    mesh.userData.baseY = mesh.position.y;
+    mesh.userData.baseX = mesh.position.x;
+    mesh.userData.baseZ = mesh.position.z;
+
+    return mesh;
 }
 
+
 function createAsteroidBelt({
-	count = 500,
-	radius = 18,
-	width = 8,
-	minSize = 0.05,
-	maxSize = 0.3,
-	y = 0
+    count = 500,
+    radius = 18,
+    width = 8,
+    minSize = 0.05,
+    maxSize = 0.3,
+    y = 0
 }) {
 	const group = new THREE.Group();
-	
-	for (let i = 0; i < count; i++) {
-		const size = THREE.MathUtils.lerp(minSize, maxSize, Math.random());
-		const asteroid = createAsteroid(size);
-		
-		const angle = Math.random() * Math.PI * 2;
-		const dist = radius + (Math.random() - 0.5) * width;
-		
-		asteroid.position.set(
-			(Math.random() - 0.5) * 1.0,
-			Math.cos(angle) * dist + y,
-			Math.sin(angle) * dist
-		);
-		
-		asteroid.rotation.set(
-			Math.random() * Math.PI,
-			Math.random() * Math.PI,
-			Math.random() * Math.PI
-		);
-		
-		group.add(asteroid);
-	}
-	return group;
+
+    for (let i = 0; i < count; i++) {
+        const size = THREE.MathUtils.lerp(minSize, maxSize, Math.random());
+        const asteroid = createAsteroid(size);
+
+        const angle = Math.random() * Math.PI * 2;
+        const dist = radius + (Math.random() - 0.5) * width;
+
+        const baseX = (Math.random() - 0.5) * 1.0;
+        const baseY = Math.cos(angle) * dist + y;
+        const baseZ = Math.sin(angle) * dist;
+
+        asteroid.position.set(baseX, baseY, baseZ);
+
+        asteroid.userData.baseX = baseX;
+        asteroid.userData.baseY = baseY;
+        asteroid.userData.baseZ = baseZ;
+
+        asteroid.rotation.set(
+            Math.random() * Math.PI,
+            Math.random() * Math.PI,
+            Math.random() * Math.PI
+        );
+
+        group.add(asteroid);
+    }
+    return group;
 }
 
 const asteroidBelt = createAsteroidBelt({
@@ -278,17 +293,33 @@ timeline
 const clock = new THREE.Clock();
 
 function animate() {
-	requestAnimationFrame(animate);
-	const elapsed = clock.getElapsedTime();
-	ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
-	renderer.render(scene, camera);
+    requestAnimationFrame(animate);
 
-	asteroidBelt.rotation.y += 0.0008;
-	
-	asteroidBelt.children.forEach(a => {
-		a.rotation.x += 0.002;
-		a.rotation.y += 0.001;
-	});
+    const delta = clock.getDelta();
+    const elapsed = clock.getElapsedTime();
+
+    ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
+
+    asteroidBelt.children.forEach(a => {
+        a.userData.orbitAngle += a.userData.orbitSpeed * delta;
+
+        const localRadius = a.userData.orbitRadius;
+        const angle = a.userData.orbitAngle;
+
+        const orbitY = Math.sin(angle) * localRadius * 0.25;
+        const orbitZ = Math.cos(angle) * localRadius;
+
+        a.userData.baseY += a.userData.riseSpeed * delta;
+
+        a.position.x = asteroidBelt.position.x + a.userData.baseX;
+        a.position.y = a.userData.baseY + orbitY;
+        a.position.z = a.userData.baseZ + orbitZ;
+        a.rotation.x += 0.002;
+        a.rotation.y += 0.001;
+    });
+
+    asteroidBelt.rotation.y += 0.0008;
+    renderer.render(scene, camera);
 }
 
 animate();
