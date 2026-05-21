@@ -257,7 +257,7 @@ timeline
 	
 	.to({}, { duration: 2 })
 	.from(asteroidBelt.position, { x: "+=5", duration: 2, ease: "none" }, "<")
-	.from(asteroidBelt.children, {
+	.from(asteroidBelt.children.map(a => a.material), {
 		opacity: 0,
 		duration: 1.5,
 		stagger: 0.002
@@ -272,11 +272,11 @@ timeline
 	.add(() => addOrbit(timeline, ship, 3, 2, 3.5), 3.5)
 	.to(planet2.position, { x: -15, ease: 'none' }, 4.25);
 
-const timer = new THREE.Timer();
+const clock = new THREE.Clock();
 
 function animate() {
 	requestAnimationFrame(animate);
-	const elapsed = timer.getElapsed();
+	const elapsed = clock.getElapsed();
 	ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
 	renderer.render(scene, camera);
 
