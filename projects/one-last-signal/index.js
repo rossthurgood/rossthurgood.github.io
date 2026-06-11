@@ -171,7 +171,7 @@ camera.lookAt(ship.position);
    ------------------------- */
 
 const planet1 = new THREE.Mesh(
-    new THREE.SphereGeometry(2.0, 64, 64),
+    new THREE.SphereGeometry(2.0, 42, 42),
     new THREE.MeshStandardMaterial({
         map: texloader.load("textures/rocky.jpg"),
         roughness: 0.65,
@@ -184,7 +184,7 @@ scene.add(planet1);
 const planet2 = new THREE.Mesh(
     new THREE.SphereGeometry(2.0, 64, 64),
     new THREE.MeshStandardMaterial({
-        color: 0xfd56fd,
+        map: texloader.load("textures/gassy.jpg"),
         roughness: 0.65,
         metalness: 0.05
     })
