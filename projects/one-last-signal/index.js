@@ -196,14 +196,14 @@ scene.add(planet2);
    Asteroid belt
    ------------------------- */
 
-function createAsteroid(size) {
+function createBaseAsteroidGeometry(size) {
     const geo = new THREE.IcosahedronGeometry(size, 1);
-
     const pos = geo.attributes.position;
+    
     for (let i = 0; i < pos.count; i++) {
-        const nx = (Math.random() - 0.5) * size * 0.6;
-        const ny = (Math.random() - 0.5) * size * 0.6;
-        const nz = (Math.random() - 0.5) * size * 0.6;
+        const nx = (Math.random() - 0.5) * size * 0.4;
+        const ny = (Math.random() - 0.5) * size * 0.4;
+        const nz = (Math.random() - 0.5) * size * 0.4;
 
         pos.setXYZ(
             i,
@@ -212,19 +212,9 @@ function createAsteroid(size) {
             pos.getZ(i) + nz
         );
     }
-
-    pos.needsUpdate = true;
+    
     geo.computeVertexNormals();
-
-    const mat = new THREE.MeshStandardMaterial({
-        color: 0xbfc1c2,
-        roughness: 1,
-        metalness: 0,
-        transparent: true,
-        opacity: 1
-    });
-
-    return new THREE.Mesh(geo, mat);
+    return geo;
 }
 
 function createAsteroidBelt({
@@ -235,33 +225,44 @@ function createAsteroidBelt({
     maxSize = 0.18,
     y = 0
 }) {
-    const group = new THREE.Group();
+    const baseGeo = createBaseAsteroidGeometry(1);
+    const mat = new THREE.MeshStandardMaterial({
+        color: 0xbfc1c2,
+        roughness: 1,
+        metalness: 0,
+        transparent: true,
+        opacity: 1
+    });
+
+    const instancedMesh = new THREE.InstancedMesh(baseGeo, mat, count);
+    const dummy = new THREE.Object3D();
 
     for (let i = 0; i < count; i++) {
         const size = THREE.MathUtils.lerp(minSize, maxSize, Math.random());
-        const asteroid = createAsteroid(size);
+        dummy.scale.set(size, size, size);
 
-        const angle = Math.random() * Math.PI * 2;
-        const dist = radius + (Math.random() - 0.5) * width;
-
-        // Vertical ring facing the direction of travel.
-        // The belt itself moves right to left, so the ship appears to pass through it.
-        asteroid.position.set(
-            (Math.random() - 0.5) * 1.2,
-            Math.cos(angle) * dist + y,
-            Math.sin(angle) * dist
-        );
-
-        asteroid.rotation.set(
+        dummy.rotation.set(
             Math.random() * Math.PI,
             Math.random() * Math.PI,
             Math.random() * Math.PI
         );
 
-        group.add(asteroid);
+        const angle = Math.random() * Math.PI * 2;
+        const dist = radius + (Math.random() - 0.5) * width;
+        
+        dummy.position.set(
+            (Math.random() - 0.5) * 1.2,
+            Math.cos(angle) * dist + y,
+            Math.sin(angle) * dist
+        );
+
+        dummy.updateMatrix();
+        instancedMesh.setMatrixAt(i, dummy.matrix);
     }
 
-    return group;
+    instancedMesh.instanceMatrix.needsUpdate = true;
+
+    return instancedMesh;
 }
 
 const asteroidBelt = createAsteroidBelt({
@@ -269,7 +270,7 @@ const asteroidBelt = createAsteroidBelt({
     radius: 3.5,
     width: 2.5,
     minSize: 0.04,
-    maxSize: 0.18,
+    maxSize = 0.18,
     y: FLIGHT_Y
 });
 scene.add(asteroidBelt);
