@@ -117,52 +117,36 @@ earth.position.set(-4.2, -0.55, -0.5);
 scene.add(earth);
 
 /* -------------------------
-   Ship
+   Ship (.GLB loader implementation)
    ------------------------- */
 
+// Keep the group container so GSAP timelines do not reference an empty variable
 const ship = new THREE.Group();
-
-const shipBody = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.12, 0.12, 1.6, 14),
-    new THREE.MeshStandardMaterial({
-        color: 0xe6e6e6,
-        metalness: 0.4,
-        roughness: 0.3
-    })
-);
-shipBody.rotateZ(Math.PI / 2);
-ship.add(shipBody);
-
-const shipNose = new THREE.Mesh(
-    new THREE.ConeGeometry(0.12, 0.45, 12),
-    new THREE.MeshStandardMaterial({
-        color: 0xfff3ba,
-        metalness: 0.3,
-        roughness: 0.4
-    })
-);
-shipNose.rotateZ(Math.PI / 2);
-shipNose.position.set(0.95, 0, 0);
-ship.add(shipNose);
-
-const wingGeometry = new THREE.BoxGeometry(0.05, 0.5, 0.2);
-const wingMaterial = new THREE.MeshStandardMaterial({
-    color: 0xd1d1d1,
-    roughness: 0.4
-});
-
-const leftWing = new THREE.Mesh(wingGeometry, wingMaterial);
-leftWing.position.set(0, -0.16, -0.3);
-leftWing.rotateX(Math.PI / 5);
-ship.add(leftWing);
-
-const rightWing = leftWing.clone();
-rightWing.position.set(0, -0.16, 0.3);
-ship.add(rightWing);
-
 ship.position.set(SHIP_X, FLIGHT_Y, FLIGHT_Z);
-ship.scale.set(0.3, 0.3, 0.3);
+ship.scale.set(0.3, 0.3, 0.3); // Kept from your original scaling
 scene.add(ship);
+
+// Load the 3D model into the parent ship container group
+gltfloader.load(
+    "spaceship.glb",
+    (gltf) => {
+        const loadedModel = gltf.scene;
+
+        /* 
+          NOTE ON ORIENTATION: Old primitive ship pointed along the +X axis.
+          If loaded spaceship file naturally faces forward (-Z or +Z), 
+          uncomment the line below and adjust the rotation so it points to the right (+X) 
+          to match camera's trajectory math.
+        */
+        // loadedModel.rotation.y = Math.PI / 2; 
+
+        ship.add(loadedModel);
+    },
+    undefined,
+    (error) => {
+        console.error("An error occurred loading the spaceship model:", error);
+    }
+);
 
 camera.lookAt(ship.position);
 
