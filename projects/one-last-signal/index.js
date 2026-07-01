@@ -55,8 +55,6 @@ scene.add(directionalLight);
 /* -------------------------
    Journey constants
    -------------------------
-   The ship stays on this normal flight path except during planet orbits.
-   Planets and asteroid belt move from right to left to create forward travel.
 */
 
 const VIEW_RIGHT = 10;
@@ -66,8 +64,6 @@ const SHIP_X = -2.8;
 const FLIGHT_Y = -0.2;
 const FLIGHT_Z = 0;
 
-// Planet stops at x = 0. Radius is chosen so the left side of the orbit
-// matches the ship's normal flight path at x = SHIP_X.
 const PLANET_CENTER_X = 0;
 const ORBIT_RADIUS = Math.abs(SHIP_X - PLANET_CENTER_X);
 
@@ -112,7 +108,6 @@ const earth = new THREE.Mesh(
     })
 );
 
-// Earth starts partly behind/left of the ship, then exits left.
 earth.position.set(-4.2, -0.55, -0.5);
 scene.add(earth);
 
@@ -120,13 +115,11 @@ scene.add(earth);
    Ship (.GLB loader implementation)
    ------------------------- */
 
-// Keep the group container so GSAP timelines do not reference an empty variable
 const ship = new THREE.Group();
 ship.position.set(SHIP_X, FLIGHT_Y, FLIGHT_Z);
-ship.scale.set(0.3, 0.3, 0.3); // Kept from your original scaling
+ship.scale.set(0.3, 0.3, 0.3);
 scene.add(ship);
 
-// Load the 3D model into the parent ship container group
 gltfloader.load(
     "spaceship.glb",
     (gltf) => {
@@ -284,15 +277,10 @@ window.addEventListener("resize", resize);
 /* -------------------------
    Orbit helper
    -------------------------
-   Important fixes:
-   1. The orbit uses X/Y, not X/Z, so it is visible on screen.
-   2. The orbit is returned as a child timeline instead of being injected later.
-   3. The ship returns exactly to its normal flight path after orbiting.
 */
 
 function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3 } = {}) {
     const orbit = {
-        // Start at the left side of the planet, which matches the normal ship path.
         angle: Math.PI
     };
 
@@ -315,7 +303,6 @@ function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3 } = {}) {
             ship.position.y = planet.position.y + radius * Math.sin(a);
             ship.position.z = FLIGHT_Z;
 
-            // The ship model points along +X, so rotate it to face the tangent.
             const tangentX = -Math.sin(a);
             const tangentY = Math.cos(a);
             ship.rotation.z = Math.atan2(tangentY, tangentX);
@@ -515,13 +502,10 @@ function animate() {
     requestAnimationFrame(animate);
     const elapsed = clock.getElapsedTime();
 
-    // Subtle ship bob. This only affects x-rotation, so it does not fight the orbit z-rotation.
     ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
 
-    // Gentle background motion.
-    stars.rotation.y += 0.00005;
+    stars.rotation.y += 0.00025;
 
-    // Subtle belt rotation and asteroid spins.
     asteroidBelt.rotation.y += 0.0008;
     asteroidBelt.children.forEach((a) => {
         a.rotation.x += 0.002;
