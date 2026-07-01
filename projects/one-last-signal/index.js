@@ -254,7 +254,7 @@ const asteroidBelt = createAsteroidBelt({
     radius: 3.5,
     width: 2.5,
     minSize: 0.04,
-    maxSize: = 0.18,
+    maxSize: 0.18,
     y: FLIGHT_Y
 });
 scene.add(asteroidBelt);
