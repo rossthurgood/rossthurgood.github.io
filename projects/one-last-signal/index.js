@@ -352,7 +352,7 @@ timeline
     .to(
         earth.position,
         {
-            x: VIEW_LEFT - 4,
+            x: VIEW_LEFT - 8,
             duration: 2.2,
             ease: "none"
         },
@@ -504,7 +504,7 @@ function animate() {
 
     ship.rotation.x = Math.sin(elapsed * 1.2) * 0.03;
 
-    stars.rotation.y += 0.00025;
+    stars.rotation.y += 0.00005;
 
     asteroidBelt.rotation.y += 0.0008;
     asteroidBelt.children.forEach((a) => {
