@@ -58,7 +58,7 @@ scene.add(directionalLight);
 */
 
 const VIEW_RIGHT = 10;
-const VIEW_LEFT = -10;
+const VIEW_LEFT = -15;
 
 const SHIP_X = -2.8;
 const FLIGHT_Y = -0.2;
@@ -117,7 +117,7 @@ scene.add(earth);
 
 const ship = new THREE.Group();
 ship.position.set(SHIP_X, FLIGHT_Y, FLIGHT_Z);
-ship.scale.set(0.3, 0.3, 0.3);
+ship.scale.set(0.15, 0.15, 0.15);
 scene.add(ship);
 
 gltfloader.load(
@@ -131,7 +131,7 @@ gltfloader.load(
           uncomment the line below and adjust the rotation so it points to the right (+X) 
           to match camera's trajectory math.
         */
-        // loadedModel.rotation.y = Math.PI / 2; 
+        loadedModel.rotation.y = Math.PI / 2; 
 
         ship.add(loadedModel);
     },
@@ -506,7 +506,7 @@ function animate() {
 
     stars.rotation.y += 0.00005;
 
-    asteroidBelt.rotation.y += 0.0008;
+    asteroidBelt.rotation.z += 0.0008;
     asteroidBelt.children.forEach((a) => {
         a.rotation.x += 0.002;
         a.rotation.y += 0.001;
