@@ -130,7 +130,7 @@ gltfloader.load(
           uncomment the line below and adjust the rotation so it points to the right (+X) 
           to match camera's trajectory math.
         */
-        loadedModel.rotation.y = Math.PI / 2; 
+        loadedModel.rotation.y = 0; 
 
         ship.add(loadedModel);
     },
@@ -419,7 +419,7 @@ timeline
             x: PLANET_CENTER_X,
             y: FLIGHT_Y,
             z: FLIGHT_Z,
-            duration: 2.2,
+            duration: 3.5,
             ease: "none"
         },
         "planet1Enter"
@@ -433,7 +433,7 @@ timeline
         planet1.position,
         {
             x: VIEW_LEFT - 10,
-            duration: 2.2,
+            duration: 3.5,
             ease: "none"
         },
         ">"
@@ -448,7 +448,7 @@ timeline
             x: PLANET_CENTER_X,
             y: FLIGHT_Y,
             z: FLIGHT_Z,
-            duration: 2.2,
+            duration: 3.5,
             ease: "none"
         },
         "planet2Enter"
@@ -462,7 +462,7 @@ timeline
         planet2.position,
         {
             x: VIEW_LEFT - 10,
-            duration: 2.2,
+            duration: 3.5,
             ease: "none"
         },
         ">"
