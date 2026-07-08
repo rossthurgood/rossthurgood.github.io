@@ -6,7 +6,6 @@ import { ScrollTrigger } from "https://cdn.jsdelivr.net/npm/gsap@3.12.5/ScrollTr
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Kept from your original file in case you later swap the built ship for a GLTF model.
 const gltfloader = new GLTFLoader();
 const texloader = new THREE.TextureLoader();
 
