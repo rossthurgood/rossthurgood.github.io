@@ -26,7 +26,7 @@ const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.set(0, 0.25, 6.5);
+camera.position.set(0, 0.25, 14);
 
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -58,7 +58,7 @@ scene.add(directionalLight);
 */
 
 const VIEW_RIGHT = 10;
-const VIEW_LEFT = -15;
+const VIEW_LEFT = -30;
 
 const SHIP_X = -2.8;
 const FLIGHT_Y = -0.2;
@@ -117,7 +117,7 @@ scene.add(earth);
 
 const ship = new THREE.Group();
 ship.position.set(SHIP_X, FLIGHT_Y, FLIGHT_Z);
-ship.scale.set(0.15, 0.15, 0.15);
+ship.scale.set(0.05, 0.05, 0.05);
 scene.add(ship);
 
 gltfloader.load(
@@ -341,9 +341,9 @@ timeline
     .to(
         ship.scale,
         {
-            x: 1,
-            y: 1,
-            z: 1,
+            x: 0.3,
+            y: 0.3,
+            z: 0.3,
             duration: 1.4,
             ease: "none"
         },
@@ -394,7 +394,7 @@ timeline
     .to(
         asteroidBelt.rotation,
         {
-            y: "+=0.8",
+            z: "+=0.8",
             duration: 4.2,
             ease: "none"
         },
@@ -433,7 +433,7 @@ timeline
     .to(
         planet1.position,
         {
-            x: VIEW_LEFT,
+            x: VIEW_LEFT - 10,
             duration: 2.2,
             ease: "none"
         },
@@ -462,7 +462,7 @@ timeline
     .to(
         planet2.position,
         {
-            x: VIEW_LEFT,
+            x: VIEW_LEFT - 10,
             duration: 2.2,
             ease: "none"
         },
@@ -508,7 +508,7 @@ function animate() {
 
     asteroidBelt.rotation.z += 0.0008;
     asteroidBelt.children.forEach((a) => {
-        a.rotation.x += 0.002;
+        a.rotation.z += 0.002;
         a.rotation.y += 0.001;
     });
 
