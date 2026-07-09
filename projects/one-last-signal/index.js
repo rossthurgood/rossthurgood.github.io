@@ -124,14 +124,6 @@ gltfloader.load(
     (gltf) => {
         const loadedModel = gltf.scene;
 
-        /* 
-          NOTE ON ORIENTATION: Old primitive ship pointed along the +X axis.
-          If loaded spaceship file naturally faces forward (-Z or +Z), 
-          uncomment the line below and adjust the rotation so it points to the right (+X) 
-          to match camera's trajectory math.
-        */
-        loadedModel.rotation.y = Math.PI / 2; 
-
         ship.add(loadedModel);
     },
     undefined,
