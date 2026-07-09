@@ -116,7 +116,7 @@ scene.add(earth);
 
 const ship = new THREE.Group();
 ship.position.set(SHIP_X, FLIGHT_Y, FLIGHT_Z);
-ship.scale.set(0.05, 0.05, 0.05);
+ship.scale.set(0.0167, 0.0167, 0.0167);
 scene.add(ship);
 
 gltfloader.load(
@@ -130,7 +130,7 @@ gltfloader.load(
           uncomment the line below and adjust the rotation so it points to the right (+X) 
           to match camera's trajectory math.
         */
-        loadedModel.rotation.y = 0; 
+        loadedModel.rotation.y = Math.PI / 2; 
 
         ship.add(loadedModel);
     },
