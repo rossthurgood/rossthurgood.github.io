@@ -243,9 +243,7 @@ const asteroidBelt = createAsteroidBelt({
 });
 scene.add(asteroidBelt);
 
-const asteroidMaterials = asteroidBelt.children
-    .map((a) => a.material)
-    .filter((m) => m && m.transparent === true);
+const asteroidMaterials = asteroidBelt.material;
 
 // Start unused objects off-screen/invisible.
 gsap.set(asteroidBelt.position, { x: VIEW_RIGHT, y: 0, z: 0 });
@@ -362,13 +360,12 @@ timeline
     )
 
     // 2. Asteroid belt comes in from the right, crosses the ship path, then exits left.
-    .addLabel("asteroids", ">")
+   .addLabel("asteroids", ">")
     .to(
         asteroidMaterials,
         {
             opacity: 1,
             duration: 0.8,
-            stagger: 0.001,
             ease: "none"
         },
         "asteroids"
@@ -396,7 +393,6 @@ timeline
         {
             opacity: 0,
             duration: 0.8,
-            stagger: 0.001,
             ease: "none"
         },
         ">-0.8"
