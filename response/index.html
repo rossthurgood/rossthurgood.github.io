@@ -29,6 +29,7 @@
     </div>
   </div>
   <span class="menuBtn" onclick="toggleNav()">☰</span>
+  <button class="modeBtn" id="modeBtn" type="button" aria-label="Toggle dark mode">☾</button>
 </div>
 
 <div class="contentarea" id="welcome">
@@ -53,35 +54,7 @@
   </div>
 </div>
 
-<script>
-	function toggleNav() {
-		const menu = document.getElementById('navBox');
-		const isHidden = menu.style.display === 'none' || !menu.style.display;
-		menu.style.display = isHidden ? 'flex' : 'none';
-	}
-
-window.addEventListener('resize', function() {
-    const menu = document.getElementById('navBox');
-    if (window.innerWidth > 900) {
-        menu.style.display = '';
-    }
-});
-</script>
-
-<script>
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href && !href.startsWith('#')) {
-                e.preventDefault();
-                document.body.classList.add('fade-out');
-                setTimeout(() => {
-                    window.location.href = href;
-                }, 300);
-            }
-        });
-    });
-</script>
+<script src="/scriptsheet.js"></script>
 
 </body>
 </html>
