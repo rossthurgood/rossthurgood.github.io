@@ -74,7 +74,7 @@ const FLIGHT_Z = 0;
 
 // rotation.y that makes the ship face +x (screen right). The ship should hold
 // this heading for the entire journey, including while orbiting.
-const SHIP_FACING = 0;
+const SHIP_FACING = -Math.PI / 2;
 
 const PLANET_CENTER_X = 0;
 const ORBIT_RADIUS = Math.abs(SHIP_X - PLANET_CENTER_X);
