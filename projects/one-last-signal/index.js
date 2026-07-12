@@ -56,12 +56,25 @@ scene.add(directionalLight);
    -------------------------
 */
 
-const VIEW_RIGHT = 10;
+// Spawn planets/asteroids just past the visible edge so they are never seen
+// parked off to the right before their entrance. Derived from the camera
+// frustum so it holds across aspect ratios.
+function offscreenRightX(margin = 3.5) {
+    const halfHeight = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.position.z;
+    const halfWidth = halfHeight * camera.aspect;
+    return halfWidth + margin;
+}
+
+const VIEW_RIGHT = offscreenRightX();
 const VIEW_LEFT = -30;
 
 const SHIP_X = -2.8;
 const FLIGHT_Y = -0.2;
 const FLIGHT_Z = 0;
+
+// rotation.y that makes the ship face +x (screen right). The ship should hold
+// this heading for the entire journey, including while orbiting.
+const SHIP_FACING = 0;
 
 const PLANET_CENTER_X = 0;
 const ORBIT_RADIUS = Math.abs(SHIP_X - PLANET_CENTER_X);
@@ -116,6 +129,7 @@ scene.add(earth);
 
 const ship = new THREE.Group();
 ship.position.set(SHIP_X, FLIGHT_Y, FLIGHT_Z);
+ship.rotation.y = SHIP_FACING;
 ship.scale.set(0.0167, 0.0167, 0.0167);
 scene.add(ship);
 
@@ -143,7 +157,8 @@ const planet1 = new THREE.Mesh(
     new THREE.MeshStandardMaterial({
         map: texloader.load("textures/rocky.jpg"),
         roughness: 0.65,
-        metalness: 0.05
+        metalness: 0.05,
+        transparent: true
     })
 );
 planet1.position.set(VIEW_RIGHT, FLIGHT_Y, FLIGHT_Z);
@@ -154,7 +169,8 @@ const planet2 = new THREE.Mesh(
     new THREE.MeshStandardMaterial({
         map: texloader.load("textures/gassy.jpg"),
         roughness: 0.65,
-        metalness: 0.05
+        metalness: 0.05,
+        transparent: true
     })
 );
 planet2.position.set(VIEW_RIGHT, FLIGHT_Y, FLIGHT_Z);
@@ -268,25 +284,23 @@ window.addEventListener("resize", resize);
    -------------------------
 */
 
-function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3, revolutions = 1.5 } = {}) {
+function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3, revolutions = 1 } = {}) {
     const orbit = {
         angle: Math.PI
     };
 
     const orbitTimeline = gsap.timeline();
 
-    // Arrive on the near (left) side of the planet, where the ship enters.
-    // The orbit always runs while the planet is held at centre, so use the
-    // fixed centre constants rather than the planet's construction-time
-    // position (which is off-screen right) for these boundary snaps.
+    // Enter on the near (left) side of the planet, in the ship's travel lane.
     orbitTimeline.set(ship.position, {
         x: PLANET_CENTER_X - radius,
         y: FLIGHT_Y,
         z: FLIGHT_Z
     });
 
-    // 1.5 turns, clockwise: front -> back -> start, then a half turn more so
-    // the ship exits on the far side and continues the journey.
+    // A whole number of turns: front -> far side -> behind -> back to the near
+    // side, ending exactly where it started (its lane) so the ship never has to
+    // hop back across the screen between planets.
     orbitTimeline.to(orbit, {
         angle: Math.PI - revolutions * Math.PI * 2,
         duration,
@@ -295,25 +309,19 @@ function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3, revoluti
             const a = orbit.angle;
 
             // Orbit in the horizontal X/Z plane so the ship sweeps in front of
-            // and behind the planet instead of passing through it.
+            // and behind the planet instead of passing through it. Heading is
+            // left fixed (SHIP_FACING) so the ship always faces screen-right.
             ship.position.x = planet.position.x + radius * Math.cos(a);
             ship.position.z = planet.position.z + radius * Math.sin(a);
             ship.position.y = planet.position.y;
-
-            // Point the nose along the direction of travel.
-            ship.rotation.y = Math.atan2(Math.cos(a), Math.sin(a));
         }
     });
 
-    // Finish on the far side, nose forward again, ready to fly on.
+    // Snap back to the exact lane position to end the orbit cleanly.
     orbitTimeline.set(ship.position, {
-        x: PLANET_CENTER_X + radius,
+        x: SHIP_X,
         y: FLIGHT_Y,
         z: FLIGHT_Z
-    });
-
-    orbitTimeline.set(ship.rotation, {
-        y: 0
     });
 
     return orbitTimeline;
@@ -331,6 +339,13 @@ const timeline = gsap.timeline({
         scrub: 1
     }
 });
+
+// Star parallax: the field drifts slowly with the ship on the straight legs of
+// the journey to sell the sense of depth, but holds still while the ship is
+// circling a planet (no star tween is added over the orbit segments). Because
+// every drift is part of the scrubbed timeline it reverses with the scroll.
+const STAR_RATE = 0.6;
+const starDrift = (d) => ({ x: `-=${d * STAR_RATE}`, ease: "none", duration: d });
 
 timeline
     // 1. Leave Earth. Earth moves left and shrinks away.
@@ -366,6 +381,7 @@ timeline
         },
         "leaveEarth"
     )
+    .to(stars.position, starDrift(2.2), "leaveEarth")
 
     // 2. Asteroid belt comes in from the right, crosses the ship path, then exits left.
    .addLabel("asteroids", ">")
@@ -405,6 +421,7 @@ timeline
         },
         ">-0.8"
     )
+    .to(stars.position, starDrift(4.2), "asteroids")
 
     // 3. Planet 1 enters from the right and stops in the centre.
     .addLabel("planet1Enter", ">")
@@ -415,37 +432,48 @@ timeline
             x: PLANET_CENTER_X,
             y: FLIGHT_Y,
             z: FLIGHT_Z,
-            duration: 3.5,
+            duration: 4,
             ease: "none"
         },
         "planet1Enter"
     )
+    .to(stars.position, starDrift(4), "planet1Enter")
 
-    // 4. Ship flies around planet 1 (front, behind, out the far side).
+    // 4. Ship flies around planet 1 (front, behind, back into its lane).
+    //    Stars deliberately hold still for the whole orbit.
     .add(makeScreenOrbit(planet1, { duration: 4 }), ">")
 
-    // 5. Planet 1 leaves through the left, then the ship glides back into its
-    //    travel lane ready for the next encounter.
+    // 5. Planet 1 is left behind: it recedes into the distance and fades, so it
+    //    never passes through the ship, which stays put in its lane.
+    .addLabel("planet1Exit", ">")
     .to(
         planet1.position,
         {
-            x: VIEW_LEFT - 10,
+            x: VIEW_LEFT,
             duration: 3.5,
             ease: "none"
         },
-        ">"
+        "planet1Exit"
     )
     .to(
-        ship.position,
+        planet1.position,
         {
-            x: SHIP_X,
-            y: FLIGHT_Y,
-            z: FLIGHT_Z,
-            duration: 2,
+            z: -55,
+            duration: 1.6,
             ease: "none"
         },
-        ">"
+        "planet1Exit"
     )
+    .to(
+        planet1.material,
+        {
+            opacity: 0,
+            duration: 2.2,
+            ease: "none"
+        },
+        "planet1Exit"
+    )
+    .to(stars.position, starDrift(3.5), "planet1Exit")
 
     // 6. Planet 2 enters from the right and stops in the centre.
     .addLabel("planet2Enter", ">")
@@ -456,60 +484,51 @@ timeline
             x: PLANET_CENTER_X,
             y: FLIGHT_Y,
             z: FLIGHT_Z,
-            duration: 3.5,
+            duration: 4,
             ease: "none"
         },
         "planet2Enter"
     )
+    .to(stars.position, starDrift(4), "planet2Enter")
 
-    // 7. Ship flies around planet 2 (front, behind, out the far side).
+    // 7. Ship flies around planet 2 (front, behind, back into its lane).
+    //    Stars hold still for the whole orbit.
     .add(makeScreenOrbit(planet2, { duration: 4 }), ">")
 
-    // 8. Planet 2 leaves through the left.
+    // 8. Planet 2 is left behind: recede and fade.
+    .addLabel("planet2Exit", ">")
     .to(
         planet2.position,
         {
-            x: VIEW_LEFT - 10,
+            x: VIEW_LEFT,
             duration: 3.5,
             ease: "none"
         },
-        ">"
+        "planet2Exit"
     )
-
-    // 9. End in open space, back on the original flight path.
-    .addLabel("deepSpace", ">")
     .to(
-        ship.position,
+        planet2.position,
         {
-            x: SHIP_X,
-            y: FLIGHT_Y,
-            z: FLIGHT_Z,
-            duration: 3,
+            z: -55,
+            duration: 1.6,
             ease: "none"
         },
-        "deepSpace"
-    );
+        "planet2Exit"
+    )
+    .to(
+        planet2.material,
+        {
+            opacity: 0,
+            duration: 2.2,
+            ease: "none"
+        },
+        "planet2Exit"
+    )
+    .to(stars.position, starDrift(3.5), "planet2Exit")
 
-/* -------------------------
-   Star parallax
-   -------------------------
-   The star field drifts with the ship for the whole journey at a slow rate,
-   giving a sense of depth. Because it is part of the scrubbed timeline it
-   moves forward and backward in step with the scroll.
-*/
-
-const STAR_PARALLAX = 0.6;
-const journeyDuration = timeline.duration();
-
-timeline.to(
-    stars.position,
-    {
-        x: `-=${journeyDuration * STAR_PARALLAX}`,
-        ease: "none",
-        duration: journeyDuration
-    },
-    0
-);
+    // 9. End in open space, still on the original flight path.
+    .addLabel("deepSpace", ">")
+    .to(stars.position, starDrift(3), "deepSpace");
 
 /* -------------------------
    Animation loop
