@@ -276,10 +276,13 @@ function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3, revoluti
     const orbitTimeline = gsap.timeline();
 
     // Arrive on the near (left) side of the planet, where the ship enters.
+    // The orbit always runs while the planet is held at centre, so use the
+    // fixed centre constants rather than the planet's construction-time
+    // position (which is off-screen right) for these boundary snaps.
     orbitTimeline.set(ship.position, {
-        x: planet.position.x - radius,
-        y: planet.position.y,
-        z: planet.position.z
+        x: PLANET_CENTER_X - radius,
+        y: FLIGHT_Y,
+        z: FLIGHT_Z
     });
 
     // 1.5 turns, clockwise: front -> back -> start, then a half turn more so
@@ -304,8 +307,8 @@ function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3, revoluti
 
     // Finish on the far side, nose forward again, ready to fly on.
     orbitTimeline.set(ship.position, {
-        x: planet.position.x + radius,
-        y: planet.position.y,
+        x: PLANET_CENTER_X + radius,
+        y: FLIGHT_Y,
         z: FLIGHT_Z
     });
 
