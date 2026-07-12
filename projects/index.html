@@ -70,13 +70,14 @@
 <script>
 	function toggleNav() {
 		const menu = document.getElementById('navBox');
+		if (!menu) return;
 		const isHidden = menu.style.display === 'none' || !menu.style.display;
 		menu.style.display = isHidden ? 'flex' : 'none';
 	}
 
 window.addEventListener('resize', function() {
     const menu = document.getElementById('navBox');
-    if (window.innerWidth > 900) {
+    if (menu && window.innerWidth > 900) {
         menu.style.display = '';
     }
 });

@@ -9,6 +9,17 @@ gsap.registerPlugin(ScrollTrigger);
 const gltfloader = new GLTFLoader();
 const texloader = new THREE.TextureLoader();
 
+function loadTexture(url) {
+    return texloader.load(
+        url,
+        undefined,
+        undefined,
+        (error) => {
+            console.error(`Failed to load texture "${url}":`, error);
+        }
+    );
+}
+
 const container = document.querySelector("#scene-container");
 if (!container) {
     throw new Error("Missing #scene-container element");
@@ -89,7 +100,7 @@ const stars = new THREE.Points(
         size: 0.15,
         transparent: true,
         opacity: 0.85,
-        map: texloader.load("textures/star.png")
+        map: loadTexture("textures/star.png")
     })
 );
 scene.add(stars);
@@ -101,7 +112,7 @@ scene.add(stars);
 const earth = new THREE.Mesh(
     new THREE.SphereGeometry(2.0, 64, 64),
     new THREE.MeshStandardMaterial({
-        map: texloader.load("textures/deadearth.png"),
+        map: loadTexture("textures/deadearth.png"),
         roughness: 0.65,
         metalness: 0.05
     })
@@ -129,6 +140,9 @@ gltfloader.load(
     undefined,
     (error) => {
         console.error("An error occurred loading the spaceship model:", error);
+        if (introText) {
+            introText.textContent = "Unable to load the spaceship model.";
+        }
     }
 );
 
@@ -141,7 +155,7 @@ camera.lookAt(ship.position);
 const planet1 = new THREE.Mesh(
     new THREE.SphereGeometry(2.0, 42, 42),
     new THREE.MeshStandardMaterial({
-        map: texloader.load("textures/rocky.jpg"),
+        map: loadTexture("textures/rocky.jpg"),
         roughness: 0.65,
         metalness: 0.05
     })
@@ -152,7 +166,7 @@ scene.add(planet1);
 const planet2 = new THREE.Mesh(
     new THREE.SphereGeometry(2.0, 64, 64),
     new THREE.MeshStandardMaterial({
-        map: texloader.load("textures/gassy.jpg"),
+        map: loadTexture("textures/gassy.jpg"),
         roughness: 0.65,
         metalness: 0.05
     })

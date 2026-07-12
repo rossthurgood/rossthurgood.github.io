@@ -185,13 +185,14 @@
 <script>
 	function toggleNav() {
 		const menu = document.getElementById('navBox');
+		if (!menu) return;
 		const isHidden = menu.style.display === 'none' || !menu.style.display;
 		menu.style.display = isHidden ? 'flex' : 'none';
 	}
 
 window.addEventListener('resize', function() {
     const menu = document.getElementById('navBox');
-    if (window.innerWidth > 900) {
+    if (menu && window.innerWidth > 900) {
         menu.style.display = '';
     }
 });
@@ -266,7 +267,10 @@ window.addEventListener('resize', function() {
         }
 
         function showImage(index) {
-            const img = items[index].querySelector('img');
+            const item = items[index];
+            if (!item) return;
+            const img = item.querySelector('img');
+            if (!img) return;
             lbImg.src = img.src;
             lbImg.alt = img.alt;
             lbCounter.textContent = (index + 1) + ' / ' + items.length;
