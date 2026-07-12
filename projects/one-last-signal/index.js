@@ -1,8 +1,8 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.164.0/build/three.module.js";
-import { GLTFLoader } from "https://cdn.jsdelivr.net/npm/three@0.164.0/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from "three";
+import { GLTFLoader } from "jsm/loaders/GLTFLoader.js";
 
-import gsap from "https://jsdelivr.net";
-import { ScrollTrigger } from "https://jsdelivr.net";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -268,44 +268,49 @@ window.addEventListener("resize", resize);
    -------------------------
 */
 
-function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3 } = {}) {
+function makeScreenOrbit(planet, { radius = ORBIT_RADIUS, duration = 3, revolutions = 1.5 } = {}) {
     const orbit = {
         angle: Math.PI
     };
 
     const orbitTimeline = gsap.timeline();
 
+    // Arrive on the near (left) side of the planet, where the ship enters.
     orbitTimeline.set(ship.position, {
         x: planet.position.x - radius,
         y: planet.position.y,
-        z: FLIGHT_Z
+        z: planet.position.z
     });
 
+    // 1.5 turns, clockwise: front -> back -> start, then a half turn more so
+    // the ship exits on the far side and continues the journey.
     orbitTimeline.to(orbit, {
-        angle: Math.PI + Math.PI * 2,
+        angle: Math.PI - revolutions * Math.PI * 2,
         duration,
         ease: "none",
         onUpdate: () => {
             const a = orbit.angle;
 
+            // Orbit in the horizontal X/Z plane so the ship sweeps in front of
+            // and behind the planet instead of passing through it.
             ship.position.x = planet.position.x + radius * Math.cos(a);
-            ship.position.y = planet.position.y + radius * Math.sin(a);
-            ship.position.z = FLIGHT_Z;
+            ship.position.z = planet.position.z + radius * Math.sin(a);
+            ship.position.y = planet.position.y;
 
-            const tangentX = -Math.sin(a);
-            const tangentY = Math.cos(a);
-            ship.rotation.z = Math.atan2(tangentY, tangentX);
+            // Point the nose along the direction of travel.
+            ship.rotation.y = Math.atan2(Math.cos(a), Math.sin(a));
         }
     });
 
+    // Finish on the far side, nose forward again, ready to fly on.
     orbitTimeline.set(ship.position, {
-        x: SHIP_X,
-        y: FLIGHT_Y,
+        x: planet.position.x + radius,
+        y: planet.position.y,
         z: FLIGHT_Z
     });
 
     orbitTimeline.set(ship.rotation, {
-        z: 0
+        y: 0
     });
 
     return orbitTimeline;
@@ -413,15 +418,27 @@ timeline
         "planet1Enter"
     )
 
-    // 4. Ship orbits planet 1 once anticlockwise.
-    .add(makeScreenOrbit(planet1, { duration: 3 }), ">")
+    // 4. Ship flies around planet 1 (front, behind, out the far side).
+    .add(makeScreenOrbit(planet1, { duration: 4 }), ">")
 
-    // 5. Planet 1 leaves through the left.
+    // 5. Planet 1 leaves through the left, then the ship glides back into its
+    //    travel lane ready for the next encounter.
     .to(
         planet1.position,
         {
             x: VIEW_LEFT - 10,
             duration: 3.5,
+            ease: "none"
+        },
+        ">"
+    )
+    .to(
+        ship.position,
+        {
+            x: SHIP_X,
+            y: FLIGHT_Y,
+            z: FLIGHT_Z,
+            duration: 2,
             ease: "none"
         },
         ">"
@@ -442,8 +459,8 @@ timeline
         "planet2Enter"
     )
 
-    // 7. Ship orbits planet 2 once anticlockwise.
-    .add(makeScreenOrbit(planet2, { duration: 3 }), ">")
+    // 7. Ship flies around planet 2 (front, behind, out the far side).
+    .add(makeScreenOrbit(planet2, { duration: 4 }), ">")
 
     // 8. Planet 2 leaves through the left.
     .to(
@@ -456,17 +473,8 @@ timeline
         ">"
     )
 
-    // 9. End in open space, following the original flight path.
+    // 9. End in open space, back on the original flight path.
     .addLabel("deepSpace", ">")
-    .to(
-        stars.position,
-        {
-            x: "-=5",
-            duration: 3,
-            ease: "none"
-        },
-        "deepSpace"
-    )
     .to(
         ship.position,
         {
@@ -478,6 +486,27 @@ timeline
         },
         "deepSpace"
     );
+
+/* -------------------------
+   Star parallax
+   -------------------------
+   The star field drifts with the ship for the whole journey at a slow rate,
+   giving a sense of depth. Because it is part of the scrubbed timeline it
+   moves forward and backward in step with the scroll.
+*/
+
+const STAR_PARALLAX = 0.6;
+const journeyDuration = timeline.duration();
+
+timeline.to(
+    stars.position,
+    {
+        x: `-=${journeyDuration * STAR_PARALLAX}`,
+        ease: "none",
+        duration: journeyDuration
+    },
+    0
+);
 
 /* -------------------------
    Animation loop
