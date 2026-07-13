@@ -98,13 +98,14 @@
 <script>
 	function toggleNav() {
 		const menu = document.getElementById('navBox');
+		if (!menu) return;
 		const isHidden = menu.style.display === 'none' || !menu.style.display;
 		menu.style.display = isHidden ? 'flex' : 'none';
 	}
 
 	window.addEventListener('resize', function() {
 		const menu = document.getElementById('navBox');
-		if (window.innerWidth > 900) {
+		if (menu && window.innerWidth > 900) {
 				menu.style.display = '';
 		}
 	});
@@ -112,24 +113,27 @@
 
 <script>
     const el = document.getElementById('rotating-words');
-    const spans = el.querySelectorAll('span');
-    let current = 0;
+    const spans = el ? el.querySelectorAll('span') : [];
 
-    setInterval(() => {
-        current++;
-        el.style.transform = `translateY(-${spans[current].offsetTop}px)`;
+    if (el && spans.length > 0) {
+        let current = 0;
 
-        if (current === spans.length - 1) {
-            setTimeout(() => {
-                el.style.transition = 'none';
-                el.style.transform = 'translateY(0)';
-                current = 0;
-                requestAnimationFrame(() => requestAnimationFrame(() => {
-                    el.style.transition = 'transform 0.5s ease-in-out';
-                }));
-            }, 500);
-        }
-    }, 2000);
+        setInterval(() => {
+            current++;
+            el.style.transform = `translateY(-${spans[current].offsetTop}px)`;
+
+            if (current === spans.length - 1) {
+                setTimeout(() => {
+                    el.style.transition = 'none';
+                    el.style.transform = 'translateY(0)';
+                    current = 0;
+                    requestAnimationFrame(() => requestAnimationFrame(() => {
+                        el.style.transition = 'transform 0.5s ease-in-out';
+                    }));
+                }, 500);
+            }
+        }, 2000);
+    }
 </script>
 
 <script>
@@ -149,7 +153,13 @@
 
 <script>
     const modeBtn = document.getElementById('modeBtn');
-    const savedMode = localStorage.getItem('pageMode');
+
+    let savedMode = null;
+    try {
+        savedMode = localStorage.getItem('pageMode');
+    } catch (error) {
+        console.warn('Unable to read saved page mode from localStorage:', error);
+    }
 
     const updateModeIcon = () => {
         if (!modeBtn) return;
@@ -166,7 +176,11 @@
     if (modeBtn) {
         modeBtn.addEventListener('click', () => {
             const isDark = document.body.classList.toggle('dark-mode');
-            localStorage.setItem('pageMode', isDark ? 'dark' : 'light');
+            try {
+                localStorage.setItem('pageMode', isDark ? 'dark' : 'light');
+            } catch (error) {
+                console.warn('Unable to save page mode to localStorage:', error);
+            }
             updateModeIcon();
         });
     }
