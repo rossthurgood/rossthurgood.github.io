@@ -56,9 +56,6 @@ scene.add(directionalLight);
    -------------------------
 */
 
-// Spawn planets/asteroids just past the visible edge so they are never seen
-// parked off to the right before their entrance. Derived from the camera
-// frustum so it holds across aspect ratios.
 function offscreenRightX(margin = 3.5) {
     const halfHeight = Math.tan(THREE.MathUtils.degToRad(camera.fov) / 2) * camera.position.z;
     const halfWidth = halfHeight * camera.aspect;
@@ -72,8 +69,6 @@ const SHIP_X = -2.8;
 const FLIGHT_Y = -0.2;
 const FLIGHT_Z = 0;
 
-// rotation.y that makes the ship face +x (screen right). The ship should hold
-// this heading for the entire journey, including while orbiting.
 const SHIP_FACING = Math.PI / 2;
 
 const PLANET_CENTER_X = 0;
@@ -261,11 +256,42 @@ scene.add(asteroidBelt);
 
 const asteroidMaterials = asteroidBelt.material;
 
+/* -------------------------
+   Station (.GLB loader implementation)
+   ------------------------- */
+
+const station = new THREE.Group();
+station.position.set(VIEW_RIGHT, FLIGHT_Y, FLIGHT_Z); 
+station.rotation.y = SHIP_FACING;
+station.scale.set(0.0167, 0.0167, 0.0167);
+
+scene.add(station); 
+
+gltfloader.load(
+    "satelite.glb",
+    (gltf) => {
+        const loadedModel = gltf.scene;
+        loadedModel.traverse((child) => {
+            if (child.isMesh && child.material) {
+                child.material.transparent = true;
+                child.material.opacity = 1;
+            }
+        });
+        station.add(loadedModel);
+    },
+    undefined,
+    (error) => {
+        console.error("An error occurred loading the station model:", error);
+    }
+);
+
 // Start unused objects off-screen/invisible.
 gsap.set(asteroidBelt.position, { x: VIEW_RIGHT, y: 0, z: 0 });
 gsap.set(asteroidMaterials, { opacity: 0 });
 gsap.set(planet1.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
 gsap.set(planet2.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
+gsap.set(station.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
+gsap.set(planet3.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
 gsap.set(ship.position, { x: SHIP_X, y: FLIGHT_Y, z: FLIGHT_Z });
 
 /* -------------------------
@@ -526,7 +552,59 @@ timeline
     )
     .to(stars.position, starDrift(3.5), "planet2Exit")
 
-    // 9. End in open space, still on the original flight path.
+    // 9. station enters from the right and stops in the centre.
+    .addLabel("stationEnter", ">")
+    .fromTo(
+        station.position,
+        { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z },
+        {
+            x: PLANET_CENTER_X,
+            y: FLIGHT_Y,
+            z: FLIGHT_Z,
+            duration: 4,
+            ease: "none"
+        },
+        "stationEnter"
+    )
+    .to(stars.position, starDrift(4), "stationEnter")
+
+    // 10. Ship flies around station (front, behind, back into its lane).
+    //    Stars deliberately hold still for the whole orbit.
+    .add(makeScreenOrbit(station, { duration: 4 }), ">")
+
+    // 11. station is left behind: it recedes into the distance and fades, so it
+    //    never passes through the ship, which stays put in its lane.
+    .addLabel("stationExit", ">")
+    .to(
+        station.position,
+        {
+            x: VIEW_LEFT,
+            duration: 3.5,
+            ease: "none"
+        },
+        "stationExit"
+    )
+    .to(
+        station.position,
+        {
+            z: -55,
+            duration: 1.6,
+            ease: "none"
+        },
+        "stationExit"
+    )
+    .to(
+        station.material,
+        {
+            opacity: 0,
+            duration: 2.2,
+            ease: "none"
+        },
+        "stationExit"
+    )
+    .to(stars.position, starDrift(3.5), "stationExit")
+
+    // 12. End in open space, still on the original flight path.
     .addLabel("deepSpace", ">")
     .to(stars.position, starDrift(3), "deepSpace");
 
