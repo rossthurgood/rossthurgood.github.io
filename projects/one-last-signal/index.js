@@ -291,7 +291,7 @@ gsap.set(asteroidMaterials, { opacity: 0 });
 gsap.set(planet1.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
 gsap.set(planet2.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
 gsap.set(station.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
-gsap.set(planet3.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
+//gsap.set(planet3.position, { x: VIEW_RIGHT, y: FLIGHT_Y, z: FLIGHT_Z });
 gsap.set(ship.position, { x: SHIP_X, y: FLIGHT_Y, z: FLIGHT_Z });
 
 /* -------------------------
