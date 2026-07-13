@@ -263,7 +263,7 @@ const asteroidMaterials = asteroidBelt.material;
 const station = new THREE.Group();
 station.position.set(VIEW_RIGHT, FLIGHT_Y, FLIGHT_Z); 
 station.rotation.y = SHIP_FACING;
-station.scale.set(0.05, 0.05, 0.05);
+station.scale.set(0.25, 0.25, 0.25);
 
 scene.add(station); 
 
@@ -432,7 +432,7 @@ timeline
     .to(
         asteroidBelt.rotation,
         {
-            z: "+=0.8",
+            x: "+=0.8",
             duration: 4.2,
             ease: "none"
         },
