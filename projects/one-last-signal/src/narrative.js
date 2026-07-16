@@ -1,11 +1,3 @@
-Changes vs your original: (1) new asset()/TEX_BASE helpers using import.meta.url; (2) loadTexture now takes a filename, sets sRGB colorSpace, and logs failures; (3) texture calls use "star.png", "deadearth.png", "rocky.jpg", "gassy.jpg"; (4) .glb and audio now go through asset(...). Everything else is identical to yours. transparent: true KEPT on the planets (needed for your fade-outs).
-
-═══════════════════════════════════════ FILE 2: src/narrative.js (replace entire file) ═══════════════════════════════════════
-
-/* All narrative copy + scroll timing lives here. Edit wording freely.
-   `at` = GSAP timeline label + offset where the beat fades in.
-   `hold` = timeline-units the text stays fully visible before fading out. */
-
 export const NARRATIVE = [
     {
         id: "signal",
