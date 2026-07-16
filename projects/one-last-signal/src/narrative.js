@@ -1,3 +1,7 @@
+Changes vs your original: (1) new asset()/TEX_BASE helpers using import.meta.url; (2) loadTexture now takes a filename, sets sRGB colorSpace, and logs failures; (3) texture calls use "star.png", "deadearth.png", "rocky.jpg", "gassy.jpg"; (4) .glb and audio now go through asset(...). Everything else is identical to yours. transparent: true KEPT on the planets (needed for your fade-outs).
+
+═══════════════════════════════════════ FILE 2: src/narrative.js (replace entire file) ═══════════════════════════════════════
+
 /* All narrative copy + scroll timing lives here. Edit wording freely.
    `at` = GSAP timeline label + offset where the beat fades in.
    `hold` = timeline-units the text stays fully visible before fading out. */
@@ -51,7 +55,7 @@ export const NARRATIVE = [
 ];
 
 /* Ending copy — chosen by the procedural habitability roll. */
-export function endingFor(metadata) {
+export function endingFor(metadata = {}) {
     if (metadata.habitable) {
         return {
             title: "ONE LAST SIGNAL",
@@ -66,14 +70,16 @@ export function endingFor(metadata) {
     };
 }
 
-/* Builds the DOM overlay. Returns { beats: Map<id, element>, ending: {...} } */
-export function buildNarrativeOverlay(root, metadata) {
+/* Builds the DOM overlay. Returns { beats: Map<id, element>, endingEl } */
+export function buildNarrativeOverlay(root, metadata = {}) {
+    root.innerHTML = ""; // prevent duplicate nodes if this ever runs twice
     const beats = new Map();
 
     NARRATIVE.forEach((beat) => {
         const el = document.createElement("div");
         el.className = "beat";
         el.setAttribute("data-testid", `beat-${beat.id}`);
+        // beat copy is author-controlled, so template HTML is safe here
         el.innerHTML = `
             <div class="beat-index">${beat.index}</div>
             <p class="beat-text">${beat.text}</p>
@@ -83,19 +89,40 @@ export function buildNarrativeOverlay(root, metadata) {
         beats.set(beat.id, el);
     });
 
+    const habitable = !!metadata.habitable;
+    const seed = metadata.seed != null ? String(metadata.seed) : "UNKNOWN";
+    const biome = (metadata.biome || "UNKNOWN").toString().toUpperCase();
+
     const ending = endingFor(metadata);
+
     const endEl = document.createElement("div");
     endEl.className = "ending";
     endEl.setAttribute("data-testid", "ending-panel");
-    endEl.innerHTML = `
-        <div class="ending-title">${ending.title}</div>
-        <p class="ending-line ${metadata.habitable ? "habitable" : "hostile"}">${ending.line}</p>
-        <p class="ending-question">${ending.question}</p>
-        <div class="ending-meta" data-testid="ending-meta">
-            SEED ${metadata.seed} &nbsp;//&nbsp; CLASS: ${metadata.biome.toUpperCase()} &nbsp;//&nbsp;
-            <span class="${metadata.habitable ? "habitable" : "hostile"}">${metadata.habitable ? "HABITABLE" : "NOT HABITABLE"}</span>
-        </div>
-    `;
+
+    const titleEl = document.createElement("div");
+    titleEl.className = "ending-title";
+    titleEl.textContent = ending.title;
+
+    const lineEl = document.createElement("p");
+    lineEl.className = `ending-line ${habitable ? "habitable" : "hostile"}`;
+    lineEl.textContent = ending.line;
+
+    const questionEl = document.createElement("p");
+    questionEl.className = "ending-question";
+    questionEl.textContent = ending.question;
+
+    // Dynamic (seed/biome come from the URL) -> use textContent, never innerHTML
+    const metaEl = document.createElement("div");
+    metaEl.className = "ending-meta";
+    metaEl.setAttribute("data-testid", "ending-meta");
+
+    const verdictEl = document.createElement("span");
+    verdictEl.className = habitable ? "habitable" : "hostile";
+    verdictEl.textContent = habitable ? "HABITABLE" : "NOT HABITABLE";
+
+    metaEl.append(`SEED ${seed}\u00A0//\u00A0CLASS: ${biome}\u00A0//\u00A0`, verdictEl);
+
+    endEl.append(titleEl, lineEl, questionEl, metaEl);
     root.appendChild(endEl);
 
     return { beats, endingEl: endEl };
