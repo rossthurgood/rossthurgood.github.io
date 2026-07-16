@@ -1,27 +1,58 @@
 <!doctype html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="One Last Signal - A scroll-based 3D experience" />
 <title>One Last Signal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 <link href="stylesheet.css" rel="stylesheet" type="text/css" />
 <link rel="icon" type="image/x-icon" href="ship black.png" />
 <script type="importmap"> {
-	"imports": {
-		"three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
-		"gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.2/index.js",
-		"gsap/": "https://cdn.jsdelivr.net/npm/gsap@3.12.2/",
-    	"jsm/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+        "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.js",
+                "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.12.2/index.js",
+                "gsap/": "https://cdn.jsdelivr.net/npm/gsap@3.12.2/",
+        "jsm/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
     }
 }
 </script>
 </head>
 
 <body>
-<div id="scene-container">
-	<div id="intro-text">Scroll down to launch</div>
+<div id="loading-screen" data-testid="loading-screen">
+        <div class="loader-title">ONE LAST SIGNAL</div>
+        <div class="loader-line">ESTABLISHING UPLINK<span class="blink">_</span></div>
+        <div id="loading-progress" data-testid="loading-progress">0%</div>
 </div>
+
+<div id="webgl-fallback" data-testid="webgl-fallback" hidden>
+        <div class="loader-title">ONE LAST SIGNAL</div>
+        <p>This experience requires WebGL, which your browser or device does not support.</p>
+        <p>Please try a modern desktop or mobile browser with hardware acceleration enabled.</p>
+</div>
+
+<div id="scene-container">
+        <div id="intro-text" data-testid="intro-text">SCROLL TO BEGIN TRANSMISSION</div>
+</div>
+
+<div id="narrative-layer" data-testid="narrative-layer"></div>
+<div id="vignette"></div>
+
+<div id="hud" data-testid="hud">
+        <div id="seed-hud" data-testid="seed-hud">
+                <label for="seed-input">WORLD SEED</label>
+                <div class="seed-row">
+                        <input id="seed-input" data-testid="seed-input" maxlength="12" spellcheck="false" autocomplete="off" aria-label="World seed" />
+                        <button id="seed-apply" data-testid="seed-apply-button" title="Regenerate the final planet from this seed">GO</button>
+                </div>
+                <div class="seed-hint">edit seed to revisit a world &middot; clear for a new one</div>
+        </div>
+        <button id="audio-toggle" data-testid="audio-toggle" aria-pressed="false">SOUND: OFF</button>
+</div>
+
 <script type="module" src="index.js"></script>
 
 </body>
