@@ -10,6 +10,12 @@ import { buildNarrativeOverlay, NARRATIVE } from "./src/narrative.js";
 gsap.registerPlugin(ScrollTrigger);
 
 /* -------------------------
+   Asset paths (resolved relative to THIS file, not the page URL)
+   ------------------------- */
+const ASSET_BASE = new URL("./", import.meta.url);
+const asset = (p) => new URL(p, ASSET_BASE).href;
+
+/* -------------------------
    Guards & fallbacks
    ------------------------- */
 
@@ -67,10 +73,22 @@ setTimeout(hideLoading, 9000);
 const gltfloader = new GLTFLoader(loadingManager);
 const texloader = new THREE.TextureLoader(loadingManager);
 
-function loadTexture(path, onFail) {
-    return texloader.load(path, undefined, undefined, () => {
-        if (onFail) onFail();
-    });
+// Textures live in ./textures/ next to this file.
+const TEX_BASE = new URL("./textures/", import.meta.url);
+
+function loadTexture(file, onFail) {
+    const url = new URL(file, TEX_BASE).href;
+    const tex = texloader.load(
+        url,
+        (t) => { t.colorSpace = THREE.SRGBColorSpace; },
+        undefined,
+        (err) => {
+            console.error("Texture failed:", url, err);
+            if (onFail) onFail();
+        }
+    );
+    tex.colorSpace = THREE.SRGBColorSpace;
+    return tex;
 }
 
 /* -------------------------
@@ -164,7 +182,7 @@ if (seedInput) {
 /* Ambient audio hook (drop audio/ambient.mp3 in place to enable) */
 const audioToggle = document.querySelector("#audio-toggle");
 if (audioToggle) {
-    const ambient = new Audio("audio/ambient.mp3");
+    const ambient = new Audio(asset("audio/ambient.mp3"));
     ambient.loop = true;
     ambient.volume = 0.35;
     let audioOn = false;
@@ -209,7 +227,7 @@ const starMaterial = new THREE.PointsMaterial({
     size: 0.15,
     transparent: true,
     opacity: 0.85,
-    map: loadTexture("textures/star.png", () => { starMaterial.map = null; starMaterial.needsUpdate = true; })
+    map: loadTexture("star.png", () => { starMaterial.map = null; starMaterial.needsUpdate = true; })
 });
 const stars = new THREE.Points(starGeometry, starMaterial);
 scene.add(stars);
@@ -219,7 +237,7 @@ scene.add(stars);
    ------------------------- */
 
 const earthMaterial = new THREE.MeshStandardMaterial({
-    map: loadTexture("textures/deadearth.png", () => {
+    map: loadTexture("deadearth.png", () => {
         earthMaterial.map = null;
         earthMaterial.color.set(0x4a4f55);
         earthMaterial.needsUpdate = true;
@@ -259,7 +277,7 @@ function buildFallbackShip() {
 }
 
 gltfloader.load(
-    "spaceship.glb",
+    asset("spaceship.glb"),
     (gltf) => ship.add(gltf.scene),
     undefined,
     (error) => {
@@ -275,7 +293,7 @@ camera.lookAt(ship.position);
    ------------------------- */
 
 const planet1Material = new THREE.MeshStandardMaterial({
-    map: loadTexture("textures/rocky.jpg", () => {
+    map: loadTexture("rocky.jpg", () => {
         planet1Material.map = null;
         planet1Material.color.set(0x8a7f72);
         planet1Material.needsUpdate = true;
@@ -289,7 +307,7 @@ planet1.position.set(VIEW_RIGHT, FLIGHT_Y, FLIGHT_Z);
 scene.add(planet1);
 
 const planet2Material = new THREE.MeshStandardMaterial({
-    map: loadTexture("textures/gassy.jpg", () => {
+    map: loadTexture("gassy.jpg", () => {
         planet2Material.map = null;
         planet2Material.color.set(0xb08a5a);
         planet2Material.needsUpdate = true;
@@ -408,7 +426,7 @@ function collectStationMaterials(root) {
 }
 
 gltfloader.load(
-    "satelite.glb",
+    asset("satelite.glb"),
     (gltf) => {
         collectStationMaterials(gltf.scene);
         station.add(gltf.scene);
