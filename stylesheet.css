@@ -162,6 +162,18 @@ body.fade-out {
 	--surface: rgba(255,255,255,0.12);
 	--surface-strong: rgba(255,255,255,0.22);
 	--text: #F0F0F0;
+	--img-blend: overlay;
+	--img-overlay: rgba(0,0,0,0); 
+}
+
+body.dark-mode {
+	background: linear-gradient(135deg, #0A0F12, #101C20, #142429, #182C33);
+	animation: fadein 0.6s both, gradientShift 8s ease infinite;
+	color: #E5F8F8;
+	
+	--primary-teal: #14282D;
+	--img-blend: multiply;
+	--img-overlay: rgba(0,0,0,0.6);
 }
 
 .modeBtn {
@@ -174,8 +186,6 @@ body.fade-out {
 	z-index: 1201;
 	width: 48px;
 	height: 48px;
-	padding: 10px 16px;
-	border: 3px solid var(--text);
 	border-radius: 50%;
 	border: 3px solid rgba(255,255,255,0.75);
 	background: rgba(255,255,255,0.08);
@@ -183,11 +193,7 @@ body.fade-out {
 	font-size: 18px;
 	cursor: pointer;
 	box-shadow: 0 8px 18px rgba(0,0,0,0.22);
-	transition: 
-		background 0.2s ease,
-		transform 0.2s ease,
-		color 0.2s ease,
-		box-shadow 0.2s ease;
+	transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .modeBtn:hover {
@@ -196,57 +202,47 @@ body.fade-out {
 	box-shadow: 0 10px 22px rgba(0,0,0,0.26);
 }
 
-body.dark-mode {
-	background: linear-gradient(135deg, #0B1316, #00333A, #132226, #1C3238);
-	animation: fadein 0.6s both, gradientShift 8s ease infinite;
-	color: #E5F8F8;
-}
-
 body.dark-mode #menubar {
-	background-color: rgba(0,0,0,0.55);
-	border-bottom-color: rgba(255,255,255,0.12);
+	background-color: rgba(10,15,18,0.75);
+	border-bottom-color: rgba(255,255,255,0.08);
 }
 
 body.dark-mode .contentarea {
-	background-color: #00333A;
+	background-color: var(--primary-teal);
 }
 
 body.dark-mode #welcome {
-	background: linear-gradient(135deg, #0B3A3A, #00333A, #004C56, #0A5961);
+	background: linear-gradient(var(--img-overlay), var(--img-overlay)), linear-gradient(135deg, #0e1e21, #14282d, #1a3238, #1e3a42);
 }
 
 body.dark-mode #contact {
-	background: rgba(0, 74, 82, 0.36);
-	border-color: rgba(255,255,255,0.12);
+	background: rgba(20, 40, 45, 0.5);
+	border-color: rgba(255,255,255,0.08);
 	box-shadow: 0 0 25px rgba(0,0,0,0.65);
 }
 
 body.dark-mode .btn,
 body.dark-mode .modeBtn {
-	border-color: #D4F6F6;
+	border-color: #A9D6D6;
 	color: #E5F8F8;
 }
 
 body.dark-mode .btn:hover {
-	background-color: rgba(255,255,255,0.12);
-	color: #C8F3F3;
-}
-
-body.dark-mode #aboutme {
-	background-color: #00333A;
+	background-color: rgba(255,255,255,0.1);
+	color: #ffffff;
 }
 
 body.dark-mode .gallery-item {
-	border-color: rgba(255,255,255,0.16);
+	border-color: rgba(255,255,255,0.12);
 	box-shadow: 0 3px 14px rgba(0,0,0,0.45);
 }
 
 body.dark-mode .gallery-overlay {
-	background: rgba(0, 58, 58, 0.75);
+	background: rgba(16, 28, 32, 0.8);
 }
 
 body.dark-mode .lightbox {
-	background: rgba(0, 0, 0, 0.96);
+	background: rgba(5, 8, 10, 0.98);
 }
 
 /* Home ------------------------------------------- */
