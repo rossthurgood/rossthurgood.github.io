@@ -1,9 +1,3 @@
-/* Shared site-wide behaviour for every page.
-   Consolidates the navigation toggle, responsive reset, page-transition
-   fade and dark-mode handling that previously lived inline on each page. */
-
-// Toggle the collapsible navigation on small screens.
-// Exposed globally because the menu button uses an inline onclick handler.
 function toggleNav() {
   const menu = document.getElementById('navBox');
   if (!menu) return;
@@ -11,8 +5,6 @@ function toggleNav() {
   menu.style.display = isHidden ? 'flex' : 'none';
 }
 
-// Reset the inline display style once the viewport is wide enough so the
-// nav is controlled by CSS again instead of the toggle state.
 window.addEventListener('resize', function () {
   const menu = document.getElementById('navBox');
   if (menu && window.innerWidth > 900) {
@@ -20,7 +12,6 @@ window.addEventListener('resize', function () {
   }
 });
 
-// Fade the page out before following in-page navigation links.
 function initPageTransitions() {
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (e) {
@@ -36,7 +27,6 @@ function initPageTransitions() {
   });
 }
 
-// Apply the saved colour-scheme preference and wire up the toggle button.
 function initDarkMode() {
   const modeBtn = document.getElementById('modeBtn');
   const savedMode = localStorage.getItem('pageMode');
