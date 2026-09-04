@@ -181,7 +181,7 @@ body.dark-mode {
 	align-items: center;
 	justify-content: center;
 	position: fixed;
-	top: 72px;
+	top: 22px;
 	right: 20px;
 	z-index: 1201;
 	width: 48px;
@@ -865,6 +865,8 @@ h1, h2, h3, h4, h5, h6 {
 	#menubar a:not(.logo)::after,
 	#menubar a.active::after {
 		height: 1.5px;
+	}
+	.modeBtn { top: 32px;
 	}
 	.contentarea {
         padding: 60px 20px 60px 20px;
