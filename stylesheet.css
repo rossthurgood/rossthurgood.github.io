@@ -705,6 +705,15 @@ h1, h2, h3, h4, h5, h6 {
 	z-index: 1001;
 }
 
+/* Projects --------------------------------------------------------- */
+#icosahedron{
+	background-image:url(website%20extras/ico.png);
+	background-size:cover;
+	background-attachment:fixed;
+	text-align:right;
+	background-repeat: no-repeat;
+}
+
 /* Placeholder / in-progress pages ------------------------------------------- */
 .placeholder-note {
 	background: rgba(0, 0, 0, 0.22);
