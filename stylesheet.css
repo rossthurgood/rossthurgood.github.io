@@ -714,12 +714,16 @@ h1, h2, h3, h4, h5, h6 {
 	background-repeat: no-repeat;
 }
 
-#a2-review{
+#one-last-signal{
 	background-image:url(website%20extras/starship.png);
 	background-size:cover;
 	background-attachment:fixed;
 	text-align:right;
 	background-repeat: no-repeat;
+}
+
+#a2-review{
+	align-items: center;
 }
 
 /* Placeholder / in-progress pages ------------------------------------------- */
