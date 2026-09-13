@@ -1,15 +1,15 @@
 @charset "utf-8";
 html{
-	background-color: #2ffbec;
+	background-color: #F5F5F3;
 }
 
 body {
 	margin: 0;
-	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
+	background: linear-gradient(135deg, #C5A059, #F5F5F3, #06CCCC, #9B111E);
 	animation: fadein 0.6s both, gradientShift 8s ease infinite;
 	background-size: 400% 400%;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	color:#F0F0F0;
+	color:#0A1931;
 	width:100%;
 	padding-top: 0px;
 }
@@ -20,18 +20,9 @@ body.fade-out {
 }
 
 @keyframes gradientShift {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-}
-
-@keyframes fadein {
-	from{
-		opacity:0;
-	}
-	to{
-		opacity:1;
-	}
+	0%   { background-position: 0% 50%; }
+	50%  { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
 }
 
 /* Menubar ------------------------------------------- */
@@ -82,7 +73,7 @@ body.fade-out {
 	bottom: -3px;
 	width: 0%;
 	height: 1.5px;
-	background: #FFF;
+	background: var(--underline-color);
 	transition: width 0.3s ease;
 }
 
@@ -113,7 +104,7 @@ body.fade-out {
 	font-size: 26px;
 	cursor: pointer;
 	display: none;
-	color: #ffc163;
+	color: #C5A059;
 	margin-left: auto;
 	margin-right: 0;
 }
@@ -147,7 +138,7 @@ body.fade-out {
 .contentarea {
 	padding: 100px 25% 100px 25%;
 	line-height: 1.5;
-	background-color:#06CCCC;
+	background-color:#F5F5F3;
 	box-sizing:border-box;
 	width:100%;
 }
@@ -155,25 +146,171 @@ body.fade-out {
 /* Dark mode ------------------------------------------- */
 
 :root {
-	--primary-teal: #06CCCC;
-	--primary-teal-dark: #00333A;
-	--primary-cyan: #2FFBEC;
-	--primary-mid: #0599CC;
-	--surface: rgba(255,255,255,0.12);
-	--surface-strong: rgba(255,255,255,0.22);
-	--text: #F0F0F0;
-	--img-blend: overlay;
-	--img-overlay: rgba(0,0,0,0); 
+	--accent-gold: #C5A059;
+	--accent-crimson: #9B111E;
+
+	--bg-primary: #F5F5F3;
+	--text-primary: #0A1931;
+
+	--surface: rgba(0,0,0,0.3);
+	--surface-strong: rgba(10, 25, 49, 0.12);
+	--border-color: rgba(10, 25, 49, 0.1);
+	--img-blend: normal;
+	--img-overlay: rgba(0,0,0,0);
+	/* button & mode button vars (default/gold theme)
+	   buttons are transparent with themed border/text; on hover they fill with the border colour
+	*/
+	--btn-border: #0A1931;
+	--btn-text: #0A1931;
+	--mode-btn-border: #FFFFFF;
+	--mode-btn-color: #FFFFFF;
+	/* image area tints (default/light-gold) */
+	--logo-tint: #F5F5F3;
+	--poster-tint: #F5F5F3;
+	--aboutme-tint: #F5F5F3;
+	--other-tint: #005588;
+	--poster-card-tint: #F5F5F3;
+
+	/* underline / divider colour (site white by default, black in HC) */
+	--underline-color: #F5F5F3;
+}
+
+body {
+	background-color: var(--bg-primary);
+	color: var(--text-primary);
+	transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#menubar, .contentarea, #welcome, #contact, .gallery-item, .gallery-overlay, .lightbox, .btn, .modeBtn {
+	transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
 }
 
 body.dark-mode {
-	background: linear-gradient(135deg, #0A0F12, #101C20, #142429, #182C33);
-	animation: fadein 0.6s both, gradientShift 8s ease infinite;
-	color: #E5F8F8;
-	
-	--primary-teal: #14282D;
+	--bg-primary: #0d203e;
+	--text-primary: #F5F5F3;
+
+	--surface: rgba(255, 255, 255, 0.9);
+	--surface-strong: rgba(255, 255, 255, 0.95);
+	--border-color: rgba(255, 255, 255, 0.9);
 	--img-blend: multiply;
-	--img-overlay: rgba(0,0,0,0.6);
+	--img-overlay: rgba(0, 0, 0, 0.5);
+	--btn-border: #F5F5F3;
+	--btn-text: #F5F5F3;
+	--mode-btn-border: #FFFFFF;
+	--mode-btn-color: #FFFFFF;
+
+	/* darker image-area tints for dark mode (stronger overlay) */
+	--logo-tint: rgba(13,32,62,0.75);
+	--poster-tint: rgba(13,32,62,0.75);
+	--aboutme-tint: rgba(13,32,62,0.75);
+	--other-tint: rgba(13,32,62,0.75);
+	/* poster-card excluded from dark-mode tinting */
+	/* underline / divider stays white in dark mode (HC overrides it) */
+	--underline-color: #F5F5F3;
+
+}
+
+/* High Contrast theme */
+body.high-contrast {
+	--bg-primary: #F5F5F3;
+	--text-primary: #0d203e;
+
+	--surface: rgba(0,0,0,0.28);
+	--surface-strong: rgba(0,0,0,0.45);
+	--border-color: rgba(0,0,0,0.32);
+	--img-blend: normal;
+	--img-overlay: rgba(0,0,0,0);
+	--btn-border: #0d203e; /* opal black */
+	--btn-text: #0d203e;
+	--mode-btn-border: #0d203e;
+	--mode-btn-color: #0d203e;
+
+	/* remove image tints in HC */
+	--logo-tint: transparent;
+	--poster-tint: transparent;
+	--aboutme-tint: transparent;
+	--other-tint: transparent;
+	/* keep poster-card unchanged in HC (exclude from tints) */
+}
+
+/* Original blue/light theme (user's original) */
+body.light-blue {
+	--bg-primary: #06CCCC;
+	--text-primary: #F0F0F0;
+
+	/* darker translucent menubar like original light mode */
+	--surface: rgba(0,0,0,0.3);
+	--surface-strong: rgba(0,0,0,0.45);
+	--border-color: rgba(255,255,255,0.22);
+	--img-blend: overlay;
+	--img-overlay: rgba(0,0,0,0);
+
+	--btn-border: #FFFFFF;
+	--btn-text: #FFFFFF;
+	--mode-btn-border: #FFFFFF;
+	--mode-btn-color: #FFFFFF;
+}
+
+/* light-blue theme specific image tints (original) */
+body.light-blue {
+	--logo-tint: #05BFE0;
+	--poster-tint: #05BFE0;
+	--aboutme-tint: #05CFCF;
+	--other-tint: #005588;
+	--poster-card-tint: #06CCCC;
+}
+
+/* light-blue theme background overrides (animated gradient) */
+body.light-blue {
+	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
+	animation: fadein 0.6s both, gradientShift 8s ease infinite;
+	background-size: 400% 400%;
+}
+
+body.light-blue #welcome {
+	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
+}
+
+#menubar {
+	background-color: var(--surface);
+	border-bottom: 1px solid var(--border-color);
+}
+
+.contentarea {
+	background-color: var(--bg-primary);
+}
+
+#welcome {
+	background-color: var(--bg-primary);
+}
+
+#contact {
+	background-color: var(--surface);
+	border: 1px solid var(--border-color);
+}
+
+.btn {
+	background-color: transparent;
+	border: 2px solid var(--btn-border);
+	color: var(--btn-text);
+	padding: 10px;
+	font-size: 18px;
+	border-radius: 8px;
+	text-decoration: none;
+	display: inline-block;
+	transition: all 0.2s ease;
+}
+
+.btn:hover {
+	background-color: var(--btn-border);
+	color: var(--bg-primary);
+	transform: scale(1.05);
+	box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+}
+
+.project-tag {
+	color: var(--accent-crimson);
+	border-bottom: 2px solid var(--accent-crimson);
 }
 
 .modeBtn {
@@ -187,70 +324,44 @@ body.dark-mode {
 	width: 48px;
 	height: 48px;
 	border-radius: 50%;
-	border: 3px solid rgba(255,255,255,0.75);
-	background: rgba(255,255,255,0.08);
-	color: var(--text);
+	border: 2px solid var(--mode-btn-border);
+	background: transparent;
+	color: var(--mode-btn-color);
 	font-size: 18px;
 	cursor: pointer;
-	box-shadow: 0 8px 18px rgba(0,0,0,0.22);
-	transition: background 0.2s ease, transform 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+	box-shadow: 0 8px 18px rgba(0,0,0,0.1);
 }
 
 .modeBtn:hover {
-	background: rgba(255,255,255,0.18);
+	background: transparent;
 	transform: translateY(-1px) scale(1.05);
-	box-shadow: 0 10px 22px rgba(0,0,0,0.26);
 }
 
-body.dark-mode #menubar {
-	background-color: rgba(10,15,18,0.75);
-	border-bottom-color: rgba(255,255,255,0.08);
-}
-
-body.dark-mode .contentarea {
-	background-color: var(--primary-teal);
-}
-
-body.dark-mode #welcome {
-	background: linear-gradient(var(--img-overlay), var(--img-overlay)), linear-gradient(135deg, #0e1e21, #14282d, #1a3238, #1e3a42);
-}
-
-body.dark-mode #contact {
-	background: rgba(20, 40, 45, 0.5);
-	border-color: rgba(255,255,255,0.08);
-	box-shadow: 0 0 25px rgba(0,0,0,0.65);
-}
-
-body.dark-mode .btn,
-body.dark-mode .modeBtn {
-	border-color: #A9D6D6;
-	color: #E5F8F8;
-}
-
-body.dark-mode .btn:hover {
-	background-color: rgba(255,255,255,0.1);
-	color: #ffffff;
-}
-
-body.dark-mode .gallery-item {
-	border-color: rgba(255,255,255,0.12);
-	box-shadow: 0 3px 14px rgba(0,0,0,0.45);
-}
-
-body.dark-mode .gallery-overlay {
-	background: rgba(16, 28, 32, 0.8);
-}
-
-body.dark-mode .lightbox {
-	background: rgba(5, 8, 10, 0.98);
-}
 
 /* Home ------------------------------------------- */
 #welcome {
-	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
+	background: linear-gradient(135deg, #C5A059, #F5F5F3, #06CCCC, #9B111E);
 	background-size: 400% 400%;
 	animation: fadein 0.6s both, gradientShift 8s ease infinite;
 	padding-top:150px;
+}
+
+/* dark-mode welcome gradient: swap the light mid tone to the dark base */
+body.dark-mode #welcome {
+	background: linear-gradient(135deg, #C5A059, #0d203e, #06CCCC, #9B111E);
+}
+
+/* Menubar overrides for dark and high-contrast */
+body.dark-mode #menubar {
+	background-color: rgba(255,255,255,0.18);
+	border-bottom: 1px solid rgba(255,255,255,0.22);
+	backdrop-filter: blur(1.75px);
+}
+
+body.high-contrast #menubar {
+	background-color: rgba(0,0,0,0.75);
+	border-bottom: 1px solid rgba(0,0,0,0.85);
+	backdrop-filter: none;
 }
 
 #contact {
@@ -320,14 +431,14 @@ body.dark-mode .lightbox {
 	background-image:url(website%20extras/Blue_Light_Background-Abstract_widescreen_wallpaper_1920x1080.jpg);
 	background-size:cover;
 	background-attachment:fixed;
-	background-color:#05CFCF;
+	background-color: var(--aboutme-tint);
 	background-blend-mode:overlay;
 }
 
 .btn {
-	border: 3px solid #F0F0F0;
+	border: 3px solid var(--btn-border);
 	text-decoration: none;
-	color: #F0F0F0;
+	color: var(--btn-text);
 	padding: 10px;
 	font-size: 18px;
 	border-radius: 8px;
@@ -337,11 +448,19 @@ body.dark-mode .lightbox {
 }
 
 .btn:hover {
-	background-color: #F0F0F0;
+	background-color: var(--btn-border);
 	transform: scale(1.05);
-	color: #06AAAA;
+	color: var(--bg-primary);
 	box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 	mix-blend-mode: lighten;
+}
+
+/* High-contrast: adjust only hover appearance so other themes unaffected */
+body.high-contrast .btn:hover {
+	background-color: var(--btn-border) !important;
+	border-color: var(--btn-border) !important;
+	color: var(--bg-primary) !important; /* text matches background (light) */
+	mix-blend-mode: normal !important;
 }
 
 .cv-button {
@@ -374,13 +493,13 @@ h1, h2, h3, h4, h5, h6 {
 #logo {
 	columns:2;
 	column-gap:50px;
-	column-rule: 1px solid #FFF;
+	column-rule: 1px solid var(--underline-color);
 	column-width:170px;
 	text-align:justify;
 	background-image:url(website%20extras/329419.jpg);
 	background-size:cover;
 
-	background-color:#05BFE0;
+	background-color: var(--logo-tint);
 	background-blend-mode:overlay;
 	background-repeat: no-repeat;
 }
@@ -388,7 +507,7 @@ h1, h2, h3, h4, h5, h6 {
 #poster {
 	background-image:url(website%20extras/thumb-1920-1054764.jpg);
 	background-size:cover;
-	background-color:#05BFE0;
+	background-color: var(--poster-tint);
 	background-blend-mode:overlay;
 	text-align:right;
 	background-repeat: no-repeat;
@@ -399,7 +518,7 @@ h1, h2, h3, h4, h5, h6 {
 	justify-content:center;
 	flex-wrap:wrap;
 	box-shadow:0 4px 6px rgba(0,0,0,0.6);
-	border:1px solid #FFF;
+	border:1px solid #0A1931;
 	border-radius:10px;
 	width:300px;
 	margin:10px;
@@ -408,7 +527,7 @@ h1, h2, h3, h4, h5, h6 {
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
 	padding:10px;
 	text-align: center;
-	background-color:#06cccc;
+	background-color:#F5F5F3;
 	flex-direction: column;
 	align-items: center;
 }
@@ -417,7 +536,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-image: url(website%20extras/Conditioned-1.80.png);
 	background-size: cover;
 	background-position: center;
-	background-color: #06cccc;
+	background-color: #F5F5F3; /* static - excluded from theme tints */
 	min-height: 380px;
 	width: 260px;
 	justify-content: flex-end;
@@ -432,7 +551,7 @@ h1, h2, h3, h4, h5, h6 {
 
 #poster-card .btn:hover {
 	background-color: rgba(0,0,0,0.75);
-	color: #FFF;
+	color: #0A1931;
 	box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
 }
 
@@ -465,7 +584,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .card-container a {
 	text-decoration:none;
-	color:#FFF;
+	color:#0A1931;
 }
 
 .card-container:hover {
@@ -474,7 +593,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .card-container .poster-card {
-	background-color:#FFF;
+	background-color:#0A1931;
 	background-image:url(website%20extras/Conditioned-1_80.png);
 	border-radius:10px;
 	background-size:cover;
@@ -485,10 +604,69 @@ h1, h2, h3, h4, h5, h6 {
 	background-image:url(website%20extras/light-green-texture-background.jpg);
 	background-size:cover;
 	background-attachment:fixed;
-	background-color:#005588;
+	background-color: var(--other-tint);
 	background-blend-mode:overlay;
 	text-align:right;
 	background-repeat: no-repeat;
+}
+
+/* High-contrast: remove tints over image areas (transparent) */
+body.high-contrast #other,
+body.high-contrast #logo,
+body.high-contrast #poster,
+body.high-contrast #aboutme,
+body.high-contrast #icosahedron,
+body.high-contrast #one-last-signal {
+	background-blend-mode: normal !important;
+	background-color: transparent !important;
+}
+
+/* Specific content-area text that should be white in HC */
+body.high-contrast #poster,
+body.high-contrast #one-last-signal {
+	color: #F5F5F3 !important;
+}
+
+/* Dark-mode image areas use the per-element --*-tint variables (stronger overlays) */
+body.dark-mode #logo {
+	background-blend-mode: overlay !important;
+	background-color: var(--logo-tint) !important;
+}
+body.dark-mode #poster {
+	background-blend-mode: overlay !important;
+	background-color: var(--poster-tint) !important;
+}
+/* #poster-card intentionally excluded from dark-mode tints */
+body.dark-mode #aboutme {
+	background-blend-mode: overlay !important;
+	background-color: var(--aboutme-tint) !important;
+}
+body.dark-mode #other {
+	background-blend-mode: overlay !important;
+	background-color: var(--other-tint) !important;
+}
+body.dark-mode #icosahedron,
+body.dark-mode #one-last-signal {
+	background-blend-mode: overlay !important;
+	background-color: var(--other-tint) !important;
+}
+
+/* High-contrast preview removed: no global desaturation applied */
+
+/* Projects page: keep image area text white regardless of theme */
+.projects .gallery-caption,
+.projects .gallery-overlay span,
+.projects .card-container p,
+.projects .card-container a,
+#projects .gallery-caption,
+#projects .gallery-overlay span,
+#projects .card-container p,
+#projects .card-container a,
+.projects-page .gallery-caption,
+.projects-page .gallery-overlay span,
+.projects-page .card-container p,
+.projects-page .card-container a {
+	color: #F5F5F3 !important;
 }
 
 /* Poster creation & Progression ------------------------------------------- */
@@ -548,7 +726,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .gallery-overlay span {
-	color: #fff;
+	color: #0A1931;
 	font-family: "Madimi One", sans-serif;
 	font-size: 13px;
 	letter-spacing: 1.5px;
@@ -562,7 +740,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-size: 11px;
 	text-align: center;
 	padding: 4px 4px 3px;
-	color: #F0F0F0;
+	color: #0A1931;
 	background: rgba(0,0,0,0.35);
 	border-radius: 0 0 5px 5px;
 	line-height: 1.3;
@@ -634,7 +812,7 @@ h1, h2, h3, h4, h5, h6 {
 .lightbox-nav {
 	background: rgba(255,255,255,0.12);
 	border: 1.5px solid rgba(255,255,255,0.3);
-	color: #fff;
+	color: #0A1931;
 	font-size: 22px;
 	width: 48px;
 	height: 48px;
@@ -671,7 +849,7 @@ h1, h2, h3, h4, h5, h6 {
 	right: 26px;
 	background: rgba(255,255,255,0.1);
 	border: 1.5px solid rgba(255,255,255,0.3);
-	color: #fff;
+	color: #0A1931;
 	font-size: 18px;
 	width: 42px;
 	height: 42px;
@@ -734,7 +912,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 22px 28px;
 	margin: 25px auto 0;
 	text-align: center;
-	color: #F0F0F0;
+	color: #0A1931;
 	max-width: 600px;
 }
 
