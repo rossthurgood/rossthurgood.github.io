@@ -1,49 +1,54 @@
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="Ross Thurgood's digital portfolio" />
-<title>Ross' Website</title>
-<link rel="icon" type="image/x-icon" href="/website extras/FinalLogo BW Flash.ico" />
-<link href="/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="https://fonts.googleapis.com/css2?family=Madimi+One&amp;display=swap" rel="stylesheet" />
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&amp;display=swap" rel="stylesheet" />
-
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="description" content="Ross Thurgood's digital portfolio" />
+	<title>Ross' Website</title>
+	<link rel="icon" type="image/x-icon" href="website%20extras/FinalLogo%20BW%20Flash.ico" />
+	<link href="stylesheet.css" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css2?family=Madimi+One&amp;display=swap" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&amp;display=swap" rel="stylesheet" />
 </head>
 
 <body>
-<div id="menubar">
-  <a href="/" class="logo">
-    <img src="/website extras/FinalLogo WB0 Flash.png" id="sitelogo" alt="logo" />
-  </a>
-  <div class="menulinks-wrapper">
-    <div class="menulinks always-visible">
-      <a href="/">Home</a>
-      <a href="/portfolio/">My Portfolio</a>
-    </div>
-    <div class="menulinks collapsible" id="navBox">
-      <a href="/projects/">Projects</a>
-      <a href="/progress/" class="active">Progression</a>
-      <a href="/response/">Response</a>
-    </div>
-  </div>
-  <span class="menuBtn" onclick="toggleNav()">☰</span>
-  <button class="modeBtn" id="modeBtn" type="button" aria-label="Toggle dark mode">☾</button>
-</div>
+	<header id="menubar">
+	  <a href="/" class="logo">
+	    <img src="website extras/FinalLogo WB0 Flash.png" id="sitelogo" alt="logo" />
+	  </a>
+	  <nav class="menulinks-wrapper">
+	    <div class="menulinks always-visible">
+	      <a href="/">Home</a>
+	      <a href="/portfolio/">My Portfolio</a>
+	    </div>
+	    <div class="menulinks collapsible" id="navBox">
+	      <a href="/projects/">Projects</a>
+	      <a href="/progress/" class="active">Progression</a>
+	      <a href="/response/">Response</a>
+	    </div>
+	  </nav>
+	  <button class="menuBtn" onclick="toggleNav()" aria-label="Toggle navigation menu" type="button">☰</button>
+	  <button class="modeBtn" id="modeBtn" type="button" aria-label="Toggle dark mode">☾</button>
+	</header>
 
-<div class="contentarea" id="poster-info">
+<main>
+<section class="contentarea" id="poster-info">
   <h2>Personal Progression</h2>
   <p>&nbsp;</p>
   <p><strong>This is my development over my course in year 12.</strong> It details how far I have come since I joined my sixth form, including my progression through the course of BTEC Creative Media Practice. It shows what I have improved on as I worked throught the first year.</p>
   <p>&nbsp;</p>
   
-  <iframe id="pdf-viewer" src="/website extras/iMedia B1 Personal Progression.one.pdf" type="application/pdf"></iframe>
-  
+  <iframe id="pdf-viewer" src="/website extras/iMedia B1 Personal Progression.one.pdf" width="100%" height="600px">
+    <p>Your browser does not support viewing PDFs inline. 
+       <a href="/website extras/iMedia B1 Personal Progression.one.pdf" target="_blank" class="download-link">
+         Click here to view or download my Personal Progression PDF.
+       </a>
+    </p>
+  </iframe>
   <p>&nbsp;</p>
   
-</div>
-
+</section>
+</main>
   
 <script src="/scriptsheet.js"></script>
 
