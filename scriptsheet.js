@@ -1,14 +1,22 @@
 function toggleNav() {
   const menu = document.getElementById('navBox');
+  const menuBtn = document.querySelector('.menuBtn'); 
   if (!menu) return;
+  
   const isHidden = menu.style.display === 'none' || !menu.style.display;
   menu.style.display = isHidden ? 'flex' : 'none';
+  
+  if (menuBtn) {
+    menuBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+  }
 }
 
 window.addEventListener('resize', function () {
   const menu = document.getElementById('navBox');
+  const menuBtn = document.querySelector('.menuBtn');
   if (menu && window.innerWidth > 900) {
     menu.style.display = '';
+    if (menuBtn) menuBtn.removeAttribute('aria-expanded');
   }
 });
 
@@ -16,7 +24,9 @@ function initPageTransitions() {
   document.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
-      if (href && !href.startsWith('#')) {
+      const target = this.getAttribute('target');
+      
+      if (href && !href.startsWith('#') && target !== '_blank' && !href.startsWith('http')) {
         e.preventDefault();
         document.body.classList.add('fade-out');
         setTimeout(() => {
@@ -31,7 +41,6 @@ function initDarkMode() {
   const modeBtn = document.getElementById('modeBtn');
   const savedMode = localStorage.getItem('pageMode') || 'light-blue';
 
-  // theme order: dark -> high-contrast -> light-blue -> dark ...
   const themes = ['dark', 'high-contrast', 'light-blue'];
 
   const applyTheme = (mode) => {
@@ -40,14 +49,12 @@ function initDarkMode() {
     else if (mode === 'high-contrast') document.body.classList.add('high-contrast');
     else if (mode === 'light-blue') document.body.classList.add('light-blue');
 
-    // update icon/text
     if (!modeBtn) return;
     if (mode === 'high-contrast') modeBtn.textContent = 'HC';
     else if (mode === 'dark') modeBtn.textContent = '☾';
     else if (mode === 'light-blue') modeBtn.textContent = '☀';
   };
 
-  // initialize: apply saved theme if valid, otherwise default to light-blue
   if (['dark','high-contrast','light-blue'].includes(savedMode)) {
     applyTheme(savedMode);
   } else {
@@ -60,13 +67,11 @@ function initDarkMode() {
         : document.body.classList.contains('high-contrast') ? 'high-contrast'
         : document.body.classList.contains('light-blue') ? 'light-blue' : 'gold';
 
-      // find next in order (if current not in themes, start at dark)
       let idx = themes.indexOf(current);
-      if (idx === -1) idx = 0; // default to dark
+      if (idx === -1) idx = 0;
       const next = themes[(idx + 1) % themes.length];
 
-      // Smooth switch: create overlay, fade in, change theme, fade out to avoid visual flash
-      const duration = 260; // ms
+      const duration = 260;
       const overlay = document.createElement('div');
       overlay.style.position = 'fixed';
       overlay.style.inset = '0';
@@ -76,12 +81,10 @@ function initDarkMode() {
       overlay.style.transition = `opacity ${duration}ms ease`;
       overlay.style.opacity = '0';
       document.body.appendChild(overlay);
-      // start fade-in
       requestAnimationFrame(() => { overlay.style.opacity = '1'; });
       setTimeout(() => {
         applyTheme(next);
         localStorage.setItem('pageMode', next);
-        // fade-out
         requestAnimationFrame(() => { overlay.style.opacity = '0'; });
         setTimeout(() => { overlay.remove(); }, duration + 20);
       }, duration);
