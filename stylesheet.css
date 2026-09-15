@@ -157,21 +157,15 @@ body.fade-out {
 	--border-color: rgba(10, 25, 49, 0.1);
 	--img-blend: normal;
 	--img-overlay: rgba(0,0,0,0);
-	/* button & mode button vars (default/gold theme)
-	   buttons are transparent with themed border/text; on hover they fill with the border colour
-	*/
 	--btn-border: #0A1931;
 	--btn-text: #0A1931;
 	--mode-btn-border: #FFFFFF;
 	--mode-btn-color: #FFFFFF;
-	/* image area tints (default/light-gold) */
 	--logo-tint: #F5F5F3;
 	--poster-tint: #F5F5F3;
 	--aboutme-tint: #F5F5F3;
 	--other-tint: #005588;
 	--poster-card-tint: #F5F5F3;
-
-	/* underline / divider colour (site white by default, black in HC) */
 	--underline-color: #F5F5F3;
 }
 
@@ -198,19 +192,15 @@ body.dark-mode {
 	--btn-text: #F5F5F3;
 	--mode-btn-border: #FFFFFF;
 	--mode-btn-color: #FFFFFF;
-
-	/* darker image-area tints for dark mode (stronger overlay) */
 	--logo-tint: rgba(13,32,62,0.75);
 	--poster-tint: rgba(13,32,62,0.75);
 	--aboutme-tint: rgba(13,32,62,0.75);
 	--other-tint: rgba(13,32,62,0.75);
-	/* poster-card excluded from dark-mode tinting */
-	/* underline / divider stays white in dark mode (HC overrides it) */
 	--underline-color: #F5F5F3;
 
 }
 
-/* High Contrast theme */
+/* High Contrast theme ------------------------------ */
 body.high-contrast {
 	--bg-primary: #F5F5F3;
 	--text-primary: #0d203e;
@@ -220,25 +210,20 @@ body.high-contrast {
 	--border-color: rgba(0,0,0,0.32);
 	--img-blend: normal;
 	--img-overlay: rgba(0,0,0,0);
-	--btn-border: #0d203e; /* opal black */
+	--btn-border: #0d203e;
 	--btn-text: #0d203e;
 	--mode-btn-border: #0d203e;
 	--mode-btn-color: #0d203e;
-
-	/* remove image tints in HC */
 	--logo-tint: transparent;
 	--poster-tint: transparent;
 	--aboutme-tint: transparent;
 	--other-tint: transparent;
-	/* keep poster-card unchanged in HC (exclude from tints) */
 }
 
-/* Original blue/light theme (user's original) */
+/* Original blue/light theme ------------------------------------- */
 body.light-blue {
 	--bg-primary: #06CCCC;
 	--text-primary: #F0F0F0;
-
-	/* darker translucent menubar like original light mode */
 	--surface: rgba(0,0,0,0.3);
 	--surface-strong: rgba(0,0,0,0.45);
 	--border-color: rgba(255,255,255,0.22);
@@ -251,7 +236,6 @@ body.light-blue {
 	--mode-btn-color: #FFFFFF;
 }
 
-/* light-blue theme specific image tints (original) */
 body.light-blue {
 	--logo-tint: #05BFE0;
 	--poster-tint: #05BFE0;
@@ -260,7 +244,6 @@ body.light-blue {
 	--poster-card-tint: #06CCCC;
 }
 
-/* light-blue theme background overrides (animated gradient) */
 body.light-blue {
 	background: linear-gradient(135deg, #2FFBEC, #06CCCC, #05CFCF, #0599CC);
 	animation: fadein 0.6s both, gradientShift 8s ease infinite;
@@ -346,12 +329,10 @@ body.light-blue #welcome {
 	padding-top:150px;
 }
 
-/* dark-mode welcome gradient: swap the light mid tone to the dark base */
 body.dark-mode #welcome {
 	background: linear-gradient(135deg, #C5A059, #0d203e, #06CCCC, #9B111E);
 }
 
-/* Menubar overrides for dark and high-contrast */
 body.dark-mode #menubar {
 	background-color: rgba(255,255,255,0.18);
 	border-bottom: 1px solid rgba(255,255,255,0.22);
@@ -455,11 +436,10 @@ body.high-contrast #menubar {
 	mix-blend-mode: lighten;
 }
 
-/* High-contrast: adjust only hover appearance so other themes unaffected */
 body.high-contrast .btn:hover {
 	background-color: var(--btn-border) !important;
 	border-color: var(--btn-border) !important;
-	color: var(--bg-primary) !important; /* text matches background (light) */
+	color: var(--bg-primary) !important;
 	mix-blend-mode: normal !important;
 }
 
@@ -536,7 +516,7 @@ h1, h2, h3, h4, h5, h6 {
 	background-image: url(website%20extras/Conditioned-1.80.png);
 	background-size: cover;
 	background-position: center;
-	background-color: #F5F5F3; /* static - excluded from theme tints */
+	background-color: #F5F5F3;
 	min-height: 380px;
 	width: 260px;
 	justify-content: flex-end;
@@ -610,7 +590,6 @@ h1, h2, h3, h4, h5, h6 {
 	background-repeat: no-repeat;
 }
 
-/* High-contrast: remove tints over image areas (transparent) */
 body.high-contrast #other,
 body.high-contrast #logo,
 body.high-contrast #poster,
@@ -621,39 +600,38 @@ body.high-contrast #one-last-signal {
 	background-color: transparent !important;
 }
 
-/* Specific content-area text that should be white in HC */
 body.high-contrast #poster,
 body.high-contrast #one-last-signal {
 	color: #F5F5F3 !important;
 }
 
-/* Dark-mode image areas use the per-element --*-tint variables (stronger overlays) */
 body.dark-mode #logo {
 	background-blend-mode: overlay !important;
 	background-color: var(--logo-tint) !important;
 }
+
 body.dark-mode #poster {
 	background-blend-mode: overlay !important;
 	background-color: var(--poster-tint) !important;
 }
-/* #poster-card intentionally excluded from dark-mode tints */
+
 body.dark-mode #aboutme {
 	background-blend-mode: overlay !important;
 	background-color: var(--aboutme-tint) !important;
 }
+
 body.dark-mode #other {
 	background-blend-mode: overlay !important;
 	background-color: var(--other-tint) !important;
 }
+
 body.dark-mode #icosahedron,
 body.dark-mode #one-last-signal {
 	background-blend-mode: overlay !important;
 	background-color: var(--other-tint) !important;
 }
 
-/* High-contrast preview removed: no global desaturation applied */
-
-/* Projects page: keep image area text white regardless of theme */
+/* Projects page: keep image area text white regardless of theme -------------- */
 .projects .gallery-caption,
 .projects .gallery-overlay span,
 .projects .card-container p,
