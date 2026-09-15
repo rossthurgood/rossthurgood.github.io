@@ -15,11 +15,11 @@
 </head>
 
 <body>
-<div id="menubar">
+<header id="menubar">
   <a href="/" class="logo">
     <img src="/website extras/FinalLogo WB0 Flash.png" id="sitelogo" alt="logo" />
   </a>
-  <div class="menulinks-wrapper">
+  <nav class="menulinks-wrapper">
     <div class="menulinks always-visible">
       <a href="/">Home</a>
       <a href="/portfolio/" class="active">My Portfolio</a>
@@ -29,27 +29,28 @@
       <a href="/progress/">Progression</a>
       <a href="/response/">Response</a>
     </div>
-  </div>
-  <span class="menuBtn" onclick="toggleNav()">☰</span>
+  </nav>
+  <button class="menuBtn" onclick="toggleNav()" aria-label="Toggle navigation menu" type="button">☰</button>
   <button class="modeBtn" id="modeBtn" type="button" aria-label="Toggle dark mode">☾</button>
-</div>
+</header>
 
-<div class="contentarea" id="portfolio">
+<main>
+<section class="contentarea" id="portfolio">
   <h2>My Portfolio</h2>
   <p>&nbsp;</p>
   <p><strong>My name is Ross,</strong> and I am currently a student at the Sweyne Park Sixth Form. I am studying A-Level Mathematics and Physics, as well as a BTEC in Creative iMedia Practice. I have developed a range of practical and technical skills, including graphic design, layout composition, and website development using HTML and CSS. I am confident in creating digital products such as logos, posters, and interactive media, ensuring they are visually consistent and professionally presented. </p>
   <p>Additionally, I have strong research and planning skills, allowing me to interpret client briefs, analyse target audiences, and apply appropriate design techniques to meet specific requirements.</p>
-</div>
+</section>
 
-<div class="contentarea" id="logo">
+<section class="contentarea" id="logo">
   <h2>My Unique Logo</h2>
   <h3>Logo design</h3>
   <p><strong>I created this personal logo to represent myself as a graphic designer</strong> and to build a recognisable visual identity. The goal was to design something simple, memorable, and unique so people could easily associate it with my work. I used a triadic colour scheme with accent colours to create contrast and help the design stand out.</p>
 <p>This logo became the main feature of my digital portfolio, where I present my design work and achievements to potential employers or universities. Because it is often the first thing people see, it needed to make a strong first impression while also showing my creativity and design ability.</p>
 <p>The design was created as a 2D vector logo, meaning it can be resized without losing quality. I produced colour and black, white as well as colour versions so it can be used across different platforms such as my CV, website, digital artwork, and printed portfolio. This ensures the logo stays clear and professional whether it appears online or in print.</p>
-</div>
+</section>
 
-<div class="contentarea" id="poster">
+<section class="contentarea" id="poster">
   <h2>My Created Poster</h2>
   <h3>Poster Design – &quot;Conditioned&quot;</h3>
   <p>I designed this entertainment poster for a dystopian sci-fi film called "Conditioned," produced by the fictional brand ARtemite. The film explores a future where AI and humanoids dominate society, blurring the line between human emotion and machine control.</p>
@@ -64,114 +65,114 @@
       <p>The poster was designed for a 16+ audience interested in dystopian and sci-fi films, with a gender-neutral style to appeal to a wider audience. It was produced as a high-resolution graphic (300 DPI) so it could be used both online and in print. The final design was exported as a PNG for digital promotion and a TIFF file for professional poster printing.</p>
     </div>
   </div>
-</div>
+</section>
 
-<div class="contentarea" id="website">
+<section class="contentarea" id="website">
   <h2>My Developed Website</h2>
   <h3>Website Design</h3>
   <p>I created this website as a personal digital portfolio to showcase my graphic design and digital media work. Its main purpose is to present my projects, demonstrate my creative and technical skills, and show my development as a designer. The website also includes a downloadable CV so potential employers or universities can quickly learn more about my experience.</p>
   <p>The website was designed for employers, recruiters, and creative professionals, particularly those working in the design and media industries. To suit this audience, I focused on a clean, modern layout with simple navigation, strong visuals, and concise text so visitors can easily explore my work.</p>
   <p>The site was built using HTML for structure and CSS for styling, with JavaScript used for interactive features such as image galleries and navigation effects. The design follows a consistent house style using green and blue colours, a clear layout, and my personal logo in the header to reinforce branding across the site.</p>
   <p>The website is structured as a multi-page portfolio and is designed primarily for desktop and laptop browsers. Visual content is prioritised, with a large gallery of images showcasing my work, helping visitors quickly understand my design style and abilities.</p>
-</div>
+</section>
 
-<div class="contentarea" id="other">
+<section class="contentarea" id="other">
   <h2>Independent Projects</h2>
   <p>Throughout my work, I continuously reflect on feedback and refine my designs to improve both technical quality and visual impact. This process has allowed me to strengthen my understanding of industry-standard practices and develop a more professional approach to digital media production. This is how I was able to make and create my own independent project, unique to the rest of my classmates, and such high quality.</p>
   
   <div class="gallery-grid" id="projectGallery">
-    <div class="gallery-item" data-index="0">
+    <figure class="gallery-item" data-index="0">
       <img src="/website extras/FinalLogo_OB_Flash.webp" alt="Final Logo – Orange &amp; Blue" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Logo – Orange &amp; Blue</div>
-    </div>
-    <div class="gallery-item" data-index="1">
+      <figcaption class="gallery-caption">Logo – Orange &amp; Blue</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="1">
       <img src="/website extras/FinalLogo xsBW Flash.webp" alt="Final Logo – Black &amp; White" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Logo – Black &amp; White</div>
-    </div>
-    <div class="gallery-item" data-index="2">
+      <figcaption class="gallery-caption">Logo – Black &amp; White</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="2">
       <img src="/website extras/FinalLogo WB0 Flash.webp" alt="Final Logo – White" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Logo – White</div>
-    </div>    
-    <div class="gallery-item" data-index="3">
+      <figcaption class="gallery-caption">Logo – White</figcaption>
+    </figure>    
+    <figure class="gallery-item" data-index="3">
       <img src="/website extras/tShirt_BW.webp" alt="T-Shirt Mockup – Black &amp; White" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">T-Shirt – Black &amp; White</div>
-    </div>
-    <div class="gallery-item" data-index="4">
+      <figcaption class="gallery-caption">T-Shirt – Black &amp; White</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="4">
       <img src="/website extras/tShirt_OB.webp" alt="T-Shirt Mockup – Orange &amp; Blue" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">T-Shirt – Orange &amp; Blue</div>
-    </div>
-    <div class="gallery-item" data-index="5">
+      <figcaption class="gallery-caption">T-Shirt – Orange &amp; Blue</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="5">
       <img src="/website extras/tShirt PG.webp" alt="T-Shirt Mockup – Purple &amp; Green" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">T-Shirt – Purple &amp; Green</div>
-    </div>
-    <div class="gallery-item" data-index="6">
+      <figcaption class="gallery-caption">T-Shirt – Purple &amp; Green</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="6">
       <img src="/website extras/Business-Card-xsOB.webp" alt="Business Card Scaled – Orange &amp; Blue" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Business Card Scaled – OB</div>
-    </div>
-    <div class="gallery-item" data-index="7">
+      <figcaption class="gallery-caption">Business Card Scaled – OB</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="7">
       <img src="/website extras/Business-Card-sBW.webp" alt="Business Card Scaled – Black &amp; White" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Business Card Scaled – BW</div>
-    </div>
-    <div class="gallery-item" data-index="8">
+      <figcaption class="gallery-caption">Business Card Scaled – BW</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="8">
       <img src="/website extras/business_card_red.png" alt="Business Card Mockup – Red" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Business Card Mockup – Red</div>
-    </div>
-    <div class="gallery-item" data-index="9">
+      <figcaption class="gallery-caption">Business Card Mockup – Red</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="9">
       <img src="/website extras/Building.webp" alt="Logo on Building Mockup" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Logo on Building Mockup</div>
-    </div>
-    <div class="gallery-item" data-index="10">
+      <figcaption class="gallery-caption">Logo on Building Mockup</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="10">
       <img src="/website extras/Desktop_Screen_orig2.png" alt="Desktop Screen Original" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Desktop Screen – Original</div>
-    </div>
-    <div class="gallery-item" data-index="11">
+      <figcaption class="gallery-caption">Desktop Screen – Original</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="11">
       <img src="/website extras/Desktop_Screen_center2.png" alt="Desktop Screen Centred" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Desktop Screen – Centred</div>
-    </div>
-    <div class="gallery-item" data-index="12">
+      <figcaption class="gallery-caption">Desktop Screen – Centred</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="12">
       <img src="/website extras/visulisation.png" alt="Colour Visualisation" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Colour Visualisation</div>
-    </div>
-    <div class="gallery-item" data-index="13">
+      <figcaption class="gallery-caption">Colour Visualisation</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="13">
       <img src="/website extras/VisDi.png" alt="Visualisation Diagram" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Visualisation Diagram</div>
-    </div>
-    <div class="gallery-item" data-index="14">
+      <figcaption class="gallery-caption">Visualisation Diagram</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="14">
       <img src="/website extras/spsvicharityzac.webp.png" alt="SPS Charity Design" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">SPS Charity Design</div>
-    </div>
-    <div class="gallery-item" data-index="15">
+      <figcaption class="gallery-caption">SPS Charity Design</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="15">
       <img src="/website extras/6omniskt.webp" alt="Omni Design" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Omni Design</div>
-    </div>
-    <div class="gallery-item" data-index="16">
+      <figcaption class="gallery-caption">Omni Design</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="16">
       <img src="/website extras/Conditioned-1.80.png" alt="Conditioned" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Conditioned Poster</div>
-    </div>
-    <div class="gallery-item" data-index="17">
+      <figcaption class="gallery-caption">Conditioned Poster</figcaption>
+    </figure>
+    <figure class="gallery-item" data-index="17">
       <img src="/website extras/FlamingoTrucking.png" alt="Flamingo Trucking" loading="auto" />
       <div class="gallery-overlay"><span>View</span></div>
-      <div class="gallery-caption">Flamingo Trucking</div>
-    </div>
+      <figcaption class="gallery-caption">Flamingo Trucking</figcaption>
+    </figure>
   </div>
-</div>
+</section>
 
 <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
   <button class="lightbox-close" id="lightboxClose" aria-label="Close">&#10005;</button>
@@ -182,7 +183,9 @@
   <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&#10095;</button>
   <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
+</main>
 
+	
 <script>
     const parallaxSections = ['logo', 'poster'];
 	const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
