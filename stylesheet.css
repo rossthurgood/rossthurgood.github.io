@@ -361,6 +361,7 @@ body.high-contrast #menubar {
     border: none;
     border-radius: 12px;
     backdrop-filter: blur(6px);
+	overflow: hidden;
 }
 
 
