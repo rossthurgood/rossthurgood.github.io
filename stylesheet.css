@@ -325,7 +325,7 @@ body.light-blue #welcome {
 #welcome {
 	background: linear-gradient(135deg, #C5A059, #F5F5F3, #06CCCC, #9B111E);
 	background-size: 400% 400%;
-	animation: fadein 0.6s both, gradientShift 8s ease infinite;
+	animation: fadein 0.6s both ease infinite;
 	padding-top:150px;
 }
 
