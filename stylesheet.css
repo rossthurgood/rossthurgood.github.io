@@ -33,7 +33,7 @@ body.fade-out {
 	
 	position: fixed;
 	width: 100%;
-	top: 0;
+	 0;
 	box-shadow:0px 5px 15px rgba(0,0,0,0.75);
 	border-bottom: 1px solid rgba(0,0,0,0.75);
 	backdrop-filter: blur(1.75px);
@@ -302,7 +302,6 @@ body.light-blue #welcome {
 	align-items: center;
 	justify-content: center;
 	position: fixed;
-	top: 22px;
 	right: 20px;
 	z-index: 1201;
 	width: 48px;
