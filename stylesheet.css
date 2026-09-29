@@ -1,6 +1,6 @@
 @charset "utf-8";
 html{
-	background-color: #F5F5F3;
+	background-color: #337377;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
 	animation: fadein 0.6s both, gradientShift 8s ease infinite;
 	background-size: 400% 400%;
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	color:#0A1931;
+	color:#0d4241;
 	width:100%;
 	padding-top: 0px;
 }
